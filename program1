@@ -1,0 +1,220 @@
+
+
+				Program 1
+				  CS320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+HOW TO SET UP:
+While you might have a C compiler on your home machine, I recommend that
+you do all your work on edoras; different operating systems have different
+system calls, and you really don't want to discover that edoras is different
+at the last moment.  So, first make the proper directory to hold your .c file:
+
+edoras% mkdir ~/One
+
+For the purposes of this discussion, '~' means "the home directory of the
+cssc0nnn edoras account assigned to you for this class"; you may own other
+edoras accounts, but you must use this cssc account for your CS320 projects.
+Similarly, ~cs320 resolves to "the home directory of the cs320 repository".
+
+WHAT TO PROGRAM:
+Write a C program (stored in ~/One/p1.c) that will read data from standard
+input one character at a time and output the results to standard output.
+Roughly, your program should mostly copy the input stream to the output
+stream, but it should delete all non-ASCII characters, change the case
+of alphabetic characters, 'fold' long lines, and make browser-friendly
+adjustments to the characters _, /, :, ?, &, and space.
+Specifically, for each character you read, do one of the following 5 things:
+
+1) Replace each of the characters '_', '/', ':', '?', '&', and ' ' (the
+   space character) with a three-character sequence, consisting of a '%'
+   character followed by the two hexadecimal digits corresponding to the
+   character's ASCII code.  These codes can be found by typing "man ascii"
+   on edoras, or at http://www.physics.udel.edu/~watson/scen103/ascii.html
+   (most of the characters that need replacements are in the pink column).
+   If you have a copy of the Foster "C By Discovery" text (highly recommended,
+   and dirt cheap if you buy an older edition), Appendix-I also lists the ASCII
+   character set, but basically, here are the changes:
+
+'_' becomes '%5F'
+'?' becomes '%3F'
+':' becomes '%3A'
+'/' becomes '%2F'
+'&' becomes '%26'
+' ' becomes '%20'
+
+That is, if the above substitutions were made on an input line of:
+google.COM/search?client=SuSE&q=AD.com:Some Pat_tern
+...it would be transformed into:
+google.COM%2Fsearch%3Fclient=SuSE%26q=AD.com%3ASome%20Pat%5Ftern
+
+2) Interchange the case of the alphabetic letters; that is, if you encounter
+an 'A', print out an 'a' instead, 'B' becomes 'b', etc. -- and likewise,
+'a' becomes 'A', ... 'z' becomes 'Z'. So, (ignoring rule 5 below for the moment)
+google.COM/search?client=SuSE&q=AD.com:Some Pat_tern
+...will actually be changed by your program into:
+GOOGLE.com%2FSEARCH%3FCLIENT=sUse%26Q=ad.COM%3AsOME%20pAT%5FTERN
+(note that we are not applying steps 1) and 2) sequentially -- after inserting
+%2F, it should NOT subsequently become %2f).
+
+3) delete all non-ASCII characters (those with character codes 128 through 255;
+   that is, read it in, but then don't print it if it is not valid ASCII).
+
+4) Any other character not mentioned above (such as digits, '+', control
+   characters, or whatever) is simply printed verbatim.
+
+5) In addition to the above changes, do not let any line get longer than 20
+   printable characters; that is, if you've printed 20 characters since the
+   last newline, insert an extra newline into the output, so that the next
+   character will be printed in column 1 again.  [Note that this is 'folding',
+   not 'truncating' -- characters after the 20th character are still printed,
+   but one line lower down.]  The example shown in rule 2 should really produce:
+
+GOOGLE.com%2FSEARCH%
+3FCLIENT=sUse%26Q=ad
+.COM%3AsOME%20pAT%5F
+TERN
+
+[Note that the "%3F" was one of the things that had a newline inserted in it;
+I recommend first ignoring this complication, and then making this last little
+tweak after everything else works right.]
+
+Your main program should return a value when it finishes.  Return one (1) if the
+output was unchanged from the input that was read in, and return zero (0) if you
+made at least one change (either by removing non-ASCII characters, expanding the
+special web characters, inserting an extra newline, or changing case).
+
+Note that this is consistent with the paradigm used in UNIX: zero is returned
+when we have a "normal" exit, allowing the program to be used in another way:
+we could ignore the output of the program and instead just look at the return
+status, giving us a way to test for the presense of input that had to be
+'massaged'.
+
+Note: Do not confuse the value returned (an integer which you designate) with
+the 'side effects' of the program (that is, the new output that you print).
+(The second panel of Page 15 of the lecture notes illustrates the values
+that the program 'grep' returns, for example.)
+
+GRADING CONSIDERATIONS:
+This is the only C program written for this class in which it is acceptable to
+code one monolithic main() function.  All further C programs should use a
+modular design.  The input stream must be handled on a one-character-at-a-time
+basis; do not use arrays!  (There is simply no need to store reams of data;
+for each character read in, you'll print out zero, one, or three characters,
+and then move on.)
+
+Your program will be checked against public test data (e.g., ~cs320/Data1/input1).
+You can examine the non-printable characters in any file from within vi via:
+:set list
+(and you can retreat from this mode with :set nolist).  Page 24 of the lecture
+notes attempts to show you what happens within vi.
+edoras% cat -vt ~cs320/Data1/input1
+...will also make the control characters visible as the file is sent
+to your screen (non-ASCII characters will have 'M-' prepended to them,
+and control characters will have a '^' in front of them).
+
+The following guidelines apply to all future programs and scripts written for
+this class.
+
+DO NOT PRINT EXTRANEOUS PROMPTS or other messages; do not add extraneous
+headers to your output.  (Most UNIX functions avoid this sort of gingerbread,
+since it would interfere with the utility's usefulness within a pipeline.)
+Instead, make sure you follow the programming specifications exactly.
+
+Document your program; the leading comments should indicate: CS320, the author's
+name, the date created, the purpose of the program, and instructor name.
+Explain any 'magic constants' that you use, and generally give the reader
+useful pointers regarding the workings of your algorithm and program.
+If the program design specifications allow you to choose different strategies,
+make sure you document your decisions.
+
+The quality of your comments will influence a significant part of
+your grade.  Quantity is not quality, though, so use discretion.
+Over-documenting can hide important information, which may be little
+better than having no documentation at all.
+
+If your program does not work correctly in all cases (or the design
+could be improved), note this in the documentation.  In the absence of
+such comments, the grader must assume that (a) you were not bright enough
+to notice the error or (b) you figure the grader is not bright enough to
+notice the error; in either case, it is not healthy for your point total.
+
+Do NOT leave the documentation until last; do it as you write the program.
+If your design changes, don't trash the corresponding documentation;
+instead, add a note indicating why the design has changed.  Remember that
+in assignments for which you will not be handing in hardcopy, the only
+discussion that can possibly be seen by the grader are the comments in your
+source code. 
+
+Short comments at the ends of lines are usually inappropriate, except for:
+        data declarations 
+        maintenance notes 
+        marking ends of blocks
+
+Guide for paragraph-sized comments:
+The comments should be at the level of the code's intent; that is, you should
+say what gets done rather than how it gets done.  (E.g., some of the early
+specification paragraphs in this file are good examples of the style of
+documentation that should be in your program.)
+
+Example 2-13 in the Foster text is a good starting point on which to build.
+The file ~masc0000/CbyDiscovery/ch2/inout2.c is publicly available, as are
+all the other programs in the Foster text.  (You must give credit for portions
+of your program that are copied from other sources, so make sure there
+is a reference to Foster in the documentation if you follow this template.)
+I recommend you study the trick used to print all lowercase characters as
+uppercase in the program in ~masc0000/CbyDiscovery/ch2/epp8.c , because
+a similar trick will also be useful for some of the character manipulation
+you must do in this assignment.  If you look at the ASCII table (look at
+the more human-friendly base-10 representations this time), you'll see that
+the difference between upper case and the corresponding lower case character
+is always 32 (e.g., for 'z' and 'Z', the values are 122 and 90, and they differ
+by 32).  Pages 22 and 23 of the lecture notes may help familiarize you with
+character representations and their manipulations.
+
+Other tips:
+* Use white space to make the program readable.
+* Use indentation to show the program's structure.
+* Use names (for variables, functions, etc.) that are descriptive.
+* Avoid useless comments: "w++; /* increment w */" is a useless comment --
+instead, your documentation should explain what you're counting, and why
+there is now an additional thing to be counted.
+("w" is also a bad name for a variable; "Total" or "widgets_completed" or
+"ColumnNumber" would be more reasonable.)
+
+Students tend to neglect to document any "unexpected behavior" of their
+programs.  If your p1 doesn't work right, and you don't say that, you'll
+lose more points than if you explain the situations under which it fails.
+(As panic sets in when the deadline approaches, try to remember that...)
+
+WHAT TO HAND IN:
+Nothing!  Your program will be automatically collected, tested, and printed for
+you.  However: Make SURE that the directory is named One [the capitalization
+must be exact] and the file is named p1.c, otherwise the program which
+automatically compiles it and runs it on the test data will not be
+able to find it (which would be a Very Bad Thing, earning you ZERO points
+for the program).  Do not change the default permissions on the files;
+they should remain unreadable to 'group' and 'other'.  Make a copy of
+the directory and its contents if you wish to do further experimentation
+with the program after the due date; leave the original untouched until
+you receive a grade with which you are satisfied.
+
+The autograder will collect your program, compile it, and perform some tests
+on it.  The autograder might not assign a full numerical grade; instead, I may
+have to print out the results, look them over and assign a grade, and eventually
+I'll return the printouts to you in class, along with handwritten comments.
+
+EXTRA CREDIT:
+The file called ~/One/GradeEarly (note the odd capitalization) is intended
+to signal that you have completed the project a week early, and wish to
+take advantage of the extra credit reward.  The contents of the file are
+immaterial; the autograder will only test for the existence of this file.
+If the file has been created by the 110% deadline, your project will be
+picked up for grading at that time (so no further changes to your code or
+documentation will be possible).  Your score will be augmented by 10% (for
+example, if you would have normally received 50% of the points, you will
+instead qualify for 55% of the points possible).
+
