@@ -1,0 +1,47 @@
+				Assignment 3
+				   CS 320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+This assignment does not involve the computer; it is a purely paper-and-pencil
+affair.  You will be producing a trace of a parse much like the 14 steps shown
+on Page 202 of Sebesta, using the six productions of the grammar (bottom of
+Page 199, top of Page 200) while referring to the parsing table on Page 200
+(Figure 4.5).  Page 202 shows a parse trace for one particular string; in this
+assignment, you will make a parse trace for a similar but DIFFERENT string.
+
+Different students will be given different strings to parse (your particular
+string will be sent to your edoras cssc account via email).  Make sure the
+string you parse is the one I send YOU; you cannot get credit for this
+assignment if you parse the wrong string.
+
+Most students will get strings that have embedded parentheses; make sure you
+parse all the characters of the entire string [that is, don't ignore any
+parentheses!]  Remember that YOU have to add the '$' (EOF marker) to the
+end of the string you are sent.
+
+WHAT TO HAND IN:
+A trace of the parse of YOUR particular assigned string, in the format
+shown on Page 202.  That is, it should have three columns, showing the
+stack contents, remaining input symbols, and corresponding action (including
+the parenthetical GOTO[] designations).  This does not have to be typed;
+your submission can be handwritten as long as it is legible.
+
+Sanity checks: If you haven't ended in state 1 (where the lone 'accept' box
+is located), or you have more tokens than just 'E' left on the stack, review
+your work and find out where you went wrong.  [Our parse tree should begin
+with the start symbol (E), so when we end, we should be at the 'top' of the
+parse tree, since this is a bottom-up parser.]  It's easy to neglect writing
+down the GOTO[] designations, so make sure you have one of those for every
+Reduce operation in your trace.
+
+REMEMBER to check the ~cs320/calendar file for the due date, and remember it is
+due at the BEGINNING of class.  NO late homework accepted!
+(I don't want people getting into traffic accidents racing to class,
+so there are circumstances in which you can get around the 2:00pm cutoff.
+If it's a bit after 2:00, the rules are:
+You must fling your homework on the front table BEFORE taking your seat --
+so don't be polite and wait till after class; I won't accept it that late.)
+
