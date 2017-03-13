@@ -1,0 +1,342 @@
+				Program 2
+				  CS 320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+You will need use the p2.dws file that you copied and modifed when you
+did Assignment 2.  The material you want graded MUST be in ~/Two/p2.dws
+in your account on edoras by the due date to receive any credit for Program 2.
+
+Every programming assignment for this class must be developed and run on edoras
+...except for this one.  For Program 2, you have the option of developing this
+on your home machine, and then transferring the workspace to edoras (by the
+deadline) for grading.  You'll begin by using the same p2.dws that you edited
+for Assignment 2.
+
+That P2 workspace contains more than just the ident function that you edited:
+there are other convenient functions and variables (MAKE_DECK, MAKE_HANDS, HAND1
+and HAND2).  If you need to fetch a fresh copy of p2.dws from the ~cs320
+directory, don't forget to edit the ident function and insert your name again!
+
+It's possible to just use dyalog on edoras and edit the p2.dws file there,
+but it will probably be more convenient to work on a local copy, and ship
+it back and forth to edoras.
+
+CAUTION: This is a binary file, not a text file.  It will be mangled if you
+transfer it in ASCII mode.  Therefore, when using sftp to move the file,
+make sure you do:
+Secure File Transfer Client --> Operation --> File Transfer Mode --> Binary
+...so that you get the un-mangled version!
+
+Once you have a copy of the P2 workspace in your preferred location,
+fire it up and issue the command:
+)load p2
+...to gain access to the functions/variables I have defined in this workspace.
+(If you're not in the correct directory, you may need to specify a full
+pathname rather than just 'p2'.)
+
+The MAKE_DECK function in the P2 workspace is the same one shown on Page 123
+of the lecture notes; it creates a deck of 52 cards.  HAND1 and HAND2 are
+variables containing two particular ways these cards might be shuffled.  Type:
+HAND1
+...to see a printout of one of these shuffled decks.  (The MAKE_HANDS function
+is provided to conveniently regenerate HAND1 and HAND2, in case you somehow
+blow them away during your experiments.)
+
+To figure out how to type the crazy characters, you may want to keep Page
+118 of the lecture notes in front of you -- but you could instead go to
+http://dfns.dyalog.com/n_keyboards.htm to find that picture.
+
+You'll probably try typing various expressions and experiment for a while,
+from the command line rather than directly typing code into your function.
+In this case, you can use the uparrow to go to a previous line and hit enter:
+the interpreter will copy the line to the bottom of your screen, then execute
+it.  (And you can even go up and edit that previous line before hitting enter.)
+
+After you have created/edited your line[s] of code (remember you get into
+the editor with something like
+)ed DEAL
+and later hit 'Escape' to exit the editor (which will 'fix' your definition).
+'fix' means the definition will be remembered momentarily, while this workspace
+is active.  CAUTION: if you just typed
+)off
+now, your work will be lost!  To preserve the changes you've made to the
+workspace, make sure you first type
+)save
+or
+)save SomeNewName
+before you exit APL.  (Making lots of new workspaces is definitely a good
+idea, in case something goes wrong with your latest attempt; just go back
+and load the last sane version and start from there.)
+
+WHAT TO PROGRAM:
+Your program2 will modify the P2 workspace and define two functions related to
+a version of the card game 'rummy'.  The first (DEAL) one will be relatively
+easy, and make a good 'warm-up' project, since the main tricks you need are
+explained in detail as part of the discussion of POKER_DEAL in the notes.
+
+In order of increasing complexity, you will:
+
+(1) create a function called DEAL which will [randomly] 'deal out' two 'piles'
+of N cards each, where N is the [right-hand] argument given to DEAL, specifying
+the number of cards in each hand.  For example, DEAL 15 might return:
+
+JT982AKQT98T834
+SSSSSHHHHHHDDDC
+
+AKQ7657427JT987
+SSSSSSHHHDCCCCC
+
+DEAL will return a different result each time; the above is just a sample.
+In the above example, you MUST return a 2x2x15 character array (N=15 columns
+for the individual cards, 2 rows each (the upper for the face values and
+the lower for the suits), and two 'planes', one for each hand.  The blank line
+shown above naturally occurs when APL prints 3-dimensional objects; those blank
+lines separate the planes.  Each hand should be sorted by suit (Spades on the
+left, then Hearts, then Diamonds, and Clubs on the right).  Within each suit,
+the cards should be arranged in descending order (AKQJT98765432).
+
+Make sure you get line [0] of your function right: if DEAL merely prints a value
+rather than *returns* a value, you won't be able to call DEAL from within SCORE.
+You can quickly verify if you've done it right via:
+(rho) DEAL 15
+When you use the rho operator, the dimensions reported should be
+2 2 15
+...so fix it if you have the wrong shape.  (And if you get an error message,
+that means DEAL did not return anything: remember, it has to RETURN a value,
+not just print a value.  See line 0 of POKER_DEAL in the tutorial for the
+correct syntax to use.
+
+EXTRA CREDIT (Make sure you edit ident to reflect this!):
+You can go over 100% if you ensure DEAL's input parameter makes sense: typing
+DEAL 'A'
+or
+DEAL 30
+should cause a USAGE: message to be printed.  [DEAL 30 doesn't make sense
+because you can't deal 60 (=2x30) cards from a 52-card deck.] Similarly, 
+DEAL 'fifteen'
+would cause a domain error if not caught.  (You can still score 100% on the
+project if you ignore the range checking; this is strictly extra credit.)
+
+Generally, your APL functions should not need any of the traditional
+programming constructs, such as loops or 'if' statements; the above
+extra-credit checks are one of the few exceptions to this principle.
+
+(2) create a SCORE function, which will accept input in the form that DEAL
+returns (that is, a 2x2xN character array) and 'decorate' this with labels
+(one for each player, which we will call PLAYER1 and PLAYER2).
+Your SCORE function will additionally report the 'points' each hand is worth
+[which is nominally just the number of cards in the runs; but a fancier scoring
+scheme, available for extra credit, is described later], right-justified below
+the label.  The runs that generate the points should be displayed to the right
+of the hand, separated by [single] spaces.  Officially, a 'run' is a sequence
+of three or more consecutive cards in the same suit.
+
+The format should look like:
+
+PLAYER1 JT982AKQT98T834 JT98 AKQ T98 
+     10 SSSSSHHHHHHDDDC SSSS HHH HHH
+
+PLAYER2 AKQ7657427JT987 AKQ 765 JT987
+     11 SSSSSSHHHDCCCCC SSS SSS CCCCC
+
+The blank lines naturally occur when APL prints 3-dimensional objects;
+those blank lines separate the planes.  However, you might find it easier
+to print a pair of 2-dimensional arrays one after the other, with an explicit
+blank line between them [since the number of columns will likely vary;
+to make it 3-D, you'd have to pad the shorter rows with additional spaces].
+Remember, the output of DEAL *MUST* be three-dimensional, but the output
+of SCORE can be two-dimensional if you prefer.
+
+Actually, putting those spaces in between the run in the sample above is
+a bit tricky (if you are trying to process all the cards in a hand at once,
+which you DEFINITELY should be).  So, a full-credit answer need only have
+two vertical columns of spaces, and can look like:
+
+PLAYER1 JT982AKQT98T834 JT98AKQT98 
+     10 SSSSSHHHHHHDDDC SSSSHHHHHH
+
+PLAYER2 AKQ7657427JT987 AKQ765JT987
+     11 SSSSSSHHHDCCCCC SSSSSSCCCCC
+
+...but you will get extra credit if you can (gracefully!) insert the columns
+that separate the runs.
+
+OK, how will you pick out these runs?  Dealing with the character data is rather
+unfriendly, so you most likely will want to convert the cards back to numbers.
+Recall that in the tutorial, the original deck of cards was represented by the
+numbers 1 (for the 2 of clubs) through 52 (for the ace of spades).  Generally,
+the numeric values 'next' to each other represented cards that were 'next' to
+each other (e.g., cards 11, 12 and 13 were the queen, king, and ace of clubs).
+But in the original numerical ordering, there were some exceptions: card 14
+was the 2 of diamonds, which really should not be 'next' to card 13 (since
+it was not even in the same suit).  So, when reassigning a new ordering,
+you might use 1 through thirteen for the clubs, but the diamonds should
+be 'far away', e.g., 101 through 113, and so on.  The dyadic form of iota
+(index-of, pages 50-51 of the .pdf file) could be quite useful here.
+
+Once you have a nice numbering system, review how we used the diadic form
+of -/ in the tutorial (on the SQ variable) to compute the differences.
+Adjacent face cards in the same suit will differ by just 1; if adjacent
+*pairs* occur, then you have [at least] three in a row.  Note that if you
+start with 15 cards, -/ will generate 14 differences; so you will want
+to massage the result to restore the right 'size'.  You won't really care how
+far away pairs of cards are; you just care whether the spacing is 1 or not-a-1.
+
+So, 2-/ will help you generate a bitmask of the runs of consecutive
+cards.  (Sort of; if you have a run of five cards, it will show you where the
+first four are.) An expression like (-2)>/ can help find the 'missing one'.
+[more easily represented as -2>/ as long as you use the correct form of '-'
+(the shift-2 raised dash, not the dash used for subtraction)].
+
+However, the 'deficient bitmask' may well have some single ones in it
+(which represents only a run of 2, which we want to ignore, since only
+runs of 3 or more count).  So, you most likely should eliminate those
+'lone ones' before trying to find the 'missing ones'.  The find operator
+(an underscored epsilon; page 65 in the .pdf file) can be helpful here.
+
+
+Your SCORE function should accept a left and a right argument, but we will
+often ignore the right argument.  The left argument is a 2x2xN character array;
+a typical invocation would be:
+HAND1 SCORE 0
+or
+(DEAL 18) SCORE 0
+
+The sample shown earlier is the correct output for HAND1 SCORE 0 .
+[In this context, we'll be ignoring the right-hand '0' argument: that is,
+HAND1 SCORE 5 and HAND1 SCORE 99 should give the same answer; we'll see a
+use for that second argument later.]  You'll probably want to use one of the
+variants of Format (Pages 99-100 of ~cs320/APLX_Language_Manual.pdf) to
+turn the numbers you generate into the proper-sized character strings,
+to make them easier to align in the proper columns.
+
+Like most APL operators, your SCORE function will have monadic behavior as
+well as dyadic behavior.  In particular, if you have no left argument, as in:
+SCORE 15
+...then SCORE should behave as though you had said:
+(DEAL 15) SCORE 0
+(that is, if score is not given a hand to score, it should generate a hand
+of the specified size and score that [random] hand).
+
+Page 29 of ~cs320/APLX_Language_Manual.pdf shows the magic syntax for
+testing if a function has been invoked with two or only one parameter
+(by checking if the 'name classification' of the left-hand dummy variable
+is zero, and if so, branching to the line labeled 'START').  Remember,
+it's perfectly fine to 'reuse' such code verbatim, as long as you include
+a citation (e.g., "as per Page 29 of APLX_Language_Manual.pdf").  Actually,
+you don't want to use it verbatim -- they use an 'equal' (Shift-5) where
+their logic indicates that they really wanted 'not-equal' (Shift-8); the more
+recent version of the manual corrects this.  This is the one other place where
+an 'if' branching statement is acceptable in your project.  (Everything else
+should be done in parallel, "the APL way": no branching, no loops!)
+
+EXTRA CREDIT is available if you implement a more sophisticated scoring scheme,
+in which A,K,Q,J, and 10 (T) are worth 3 points each; 9, 8, 7, 6 are two points
+each; and 5, 4, 3, and 2 are one point each.  So, in HAND1, PLAYER1's JT98 run
+is worth 3+3+2+2, AKQ is worth 3+3+3, and T98 is worth 3+2+2, for a total of 26.
+For HAND1, the output would then look like:
+
+PLAYER1 JT982AKQT98T834 JT98 AKQ T98 
+     26 SSSSSHHHHHHDDDC SSSS HHH HHH
+
+PLAYER2 AKQ7657427JT987 AKQ 765 JT987
+     26 SSSSSSHHHDCCCCC SSS SSS CCCCC
+Make sure you change the 'No' to a 'Yes' in the 'ident' checklist if you
+want to get the extra credit for this 'fancy scoring' option!
+
+Another EXTRA CREDIT option (if you do it RIGHT; see below): locate, print,
+and score 3- and 4-of-a-kind sets in each hand.  For example, PLAYER1 in HAND1
+has three tens and three eights, and so the HAND1 scoring would look like:
+
+PLAYER1 JT982AKQT98T834 JT98 AKQ T98 TTT 888
+     41 SSSSSHHHHHHDDDC SSSS HHH HHH SHD SHD
+
+PLAYER2 AKQ7657427JT987 AKQ 765 JT987 7777
+     35 SSSSSSHHHDCCCCC SSS SSS CCCCC SHDC
+
+(Note that several cards, like the jack of spades, contribute twice to the
+point totals.  If you were not also doing the fancier scoring, the totals for
+these two hands would be 16 and 15 instead of the 41 and 35 shown above.)
+HOWEVER, to get any credit, you MUST use the outer product operator and
+compute this portion of the score in parallel for each of the 13 face
+values, and for both hands, all at once.  [You'll find that using o.= multiple
+times makes this trivial (where 'o' is the tiny circle you get with the J key,
+NOT the bigger circle you get with the O key -- the bigger circle is for trig
+functions).]
+
+Here is the proper output for: HAND2 SCORE 0
+
+PLAYER1 KQJT96432AKQ32AK98K32 KQJT9 432 AKQ
+     11 SSSSSSSSSHHHHHDDDDCCC SSSSS SSS HHH
+
+PLAYER2 865JT984JT765432AQJT5 JT98 765432 QJT
+     13 SSSHHHHHDDDDDDDDCCCCC HHHH DDDDDD CCC
+
+...or if you do all the extra credit, it would look like:
+
+PLAYER1 KQJT96432AKQ32AK98K32 KQJT9 432 AKQ KKKK 333 222
+     44 SSSSSSSSSHHHHHDDDDCCC SSSSS SSS HHH SHDC SHC SHC
+
+PLAYER2 865JT985JT765432AQJT5 JT98 765432 QJT JJJ TTT 5555
+     49 SSSHHHHHDDDDDDDDCCCCC HHHH DDDDDD CCC HDC HDC SHDC
+
+WHAT TO HAND IN:
+1) You MUST have your APL workspace, named ~/Two/P2.dws in place by the due
+date (and it MUST be a different size than ~cs320/Two/P2.dws, indicating
+that you actually added something to my initial workspace!)  My automation
+will make a copy of this on the due date, which I will test 'by hand' (making
+sure SCORE gives the right output for HAND1 and HAND2, that DEAL works, etc.)
+
+2) A printout of your ident, DEAL and SCORE functions, which you MUST submit at
+the BEGINNING of class the next day (the day after I do the electronic
+collection of the workspace; see ~cs320/calendar for the current due dates).
+See assignment2 for printing hints.  Make sure that the ident that you print has
+the proper 'Yes' entries for the extra credit options you wish to have graded.
+
+EXTRA CREDIT:
+The file called ~/Two/GradeEarly (note the odd capitalization) is intended
+to signal that you have completed the project a week early, and wish to
+take advantage of this extra credit reward.  The contents of the file are
+immaterial; the autograder will only test for the existence of this file.
+If the file has been created by the 120% deadline, your project will be
+picked up for grading at that time (so no further changes to your code or
+documentation will be possible).  Your score will be augmented by 20% (for
+example, if you would have normally received 70% of the points, you will
+instead qualify for 84% of the points possible).  If you added functionality
+to get extra credit (say, 130%), then if you turn THAT in early, you've
+earned 156% -- and the extra points won't go to waste; they can boost your
+exam scores, if needed.
+
+GRADING CONSIDERATIONS:
+Don't forget that you're using an array-manipulation language.  In our
+APL samples, there were no loops demonstrated; whatever we needed to do,
+we did in parallel.  If you wind up processing each of the two hands
+in turn, you're not really learning how to use APL, and your grade will
+reflect that failure (doing things piecemeal is better than doing nothing,
+but not a whole lot better).  DEAL and SCORE could be one-line functions
+[I don't recommend putting everything on one line, but it's possible].  Make
+sure you understand how to make use of an outer product (Page 118); it lets
+you do far more than any sane person would reasonably expect.  (Don't confuse
+Shift-J [the symbol you need] with Shift-O [which does trig functions].)
+
+I've shown you a dozen ways to produce something as trivial as the evens
+with APL; if two students turn in similar solutions to these complicated
+tasks, don't expect to convince me this could happen by coincidence.
+
+TIME-MANAGEMENT STRATEGIES:
+The tutorial in the class notes shows what happens when you type everything
+perfectly, and always use the syntax correctly.  Your first experiences with
+APL might be slightly less perfect.  You are likely to get some head-scratching
+errors, and get some output that is not at all what you expected.  I can help
+explain what APL is telling you, but if you try to do the entire assignment in
+the last week, you'll run across far more roadblocks than you will have time
+to ask about.  START EARLY!
+
+Strive for the extra-credit deadline.  If you finish by then, you can do the
+simpler version of the assignment and still score over 100% [once the extra
+credit is added on].  For many of you, you'll find that you'll really need
+to invest more time than you thought to get it done -- and it's better to
+discover that while you still have a week to complete it.

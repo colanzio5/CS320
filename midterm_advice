@@ -1,0 +1,118 @@
+The midterm for CS320 is scheduled for Thursday, March 23, 2017.
+
+Page numbers in this document are for the NINTH edition of Sebesta.
+NOTE: If you have a newer edition of the text, the problem numbers listed are
+NOT accurate; you'll need to peek at someone's ninth edition to find out what
+the corresponding problem numbers are.
+
+The exam will be closed-book, but you may bring to the exam ONE 8.5x11-inch
+pages of notes (you can write/xerox/doodle on both sides of the page).
+Occasionally students pool resources and create a compact, whiz-bang compendium
+of facts, which multiple people can then print and use.  While this is legal
+[ANYTHING you want to put on the pages is legal], I don't recommend it;
+sifting through the material to create the notes, deciding what is important,
+and then writing it down is the most useful thing you can do to study for
+the exam -- this process is where you're actually going to learn the material.
+Using a canned sheet will be better than walking into the exam empty-handed,
+but even a seriously incomplete sheet that you've constructed yourself will
+almost certainly lead to a better outcome than using someone else's list.
+
+There may not be enough room to write all your answers on the exam, so bring
+notebook paper for your answers.  I'll have a stapler with me, to attach your
+answers to the exam.  (I'll also bring some paper, in case anyone runs out.)
+If you have non-standard size paper, or paper you're pulling out of a
+spiral-bound notebook, PLEASE use the paper I provide instead!
+
+The exam will cover Chapters 1 through 5, and the various supplemental
+materials we have discussed in class; specifics are given below.
+The in-class xeroxed lecture notes form a fairly accurate guide to the material
+we have covered.  We SKIPped Sections 3.4 and 3.5, so you do NOT have to
+review Pages 135-163.  Section 4.3.2 contained everything I wanted you to know
+about Top-Down parsers, so you can SKIP Section 4.4.  We covered Section 4.5
+in gory detail, though I promised not to ask about 'phrases' (Page 196).
+We SKIPped Pages 230 and 231 in Chapter 5.
+
+Included at the end of my lecture notes for each chapter are sample exam
+questions, the majority of which have appeared on previous exams.  You
+definitely should understand all of those, and perusing them can give you
+a pretty good feel for the way I am likely to phrase things on the midterm.
+
+The review questions at the end of each Sebesta chapter can be a useful study
+guide.  Some especially useful ones are:
+Chapter 1 (Page 34): 1,3,4,5,6,12,14,19,20,23,26,27,28
+Chapter 2 (Page 109): 1,10,14,15,21,26,35,41
+Chapter 3 (Page 164): 1,3,4,5,6
+Chapter 4 (Page 204): 1,2,3,7,8,9,12,21,23,24
+Chapter 5 (Page 240): 3,6,7,8,9,10,12,16,20
+
+Many of the Sebesta review questions are of the form:
+"Give a definition for [something]"
+I rarely phrase exam questions that way; I would be more likely to ask:
+"Does [some-concrete-example] fit the definition for [something]"
+or:
+"Give an example that fits the definition of [something]"
+Therefore, you must know what the definition *means*; this is far different
+than memorizing a sequence of words that you can parrot back.
+In this regard, some of the Sebesta 'Problem Set' questions are better
+models of exam questions.  Here are the ones that I had suggested:
+Chapter 3 Problem Set questions (Page 165): 3,7c,10,11
+Chapter 4 Problem Set questions (Page 205): 7,8
+Chapter 5 Problem Set questions (Page 241): 2,10,11a
+(Of course, I'd only ask one or two intermediate steps for 7 or 8 in Chapter 4,
+not the whole parse trace, but doing the entire problem is good practice.
+There will absolutely, definitely be [a small part of] something like this
+on the exam, using the exact grammar and LR parsing table that we have
+been practicing with.  The LR table [and the six grammar rules] will be
+provided on the exam; you don't need to put that info on your page of notes.)
+
+Oddly, the Sebesta questions seem to imply that you don't really have to
+know anything about ambiguous grammars.  Big hint: You do.
+
+Make sure you understand the five classes of symbols used to describe formal
+languages (Pages 182-183); reread the part of the lecture notes that allow
+us to deduce what the 'A' is in the xA[alpha] expression on Page 183, etc.
+(namely that the notation implied that 'A' had to be the left-most nonterminal,
+even without stating that fact out loud -- you should be able to make similar
+deductions based on the meanings of the five classes).  For example:
+
+Assume that the following derivation step conforms to the formal language
+notational conventions for grammar symbols [i.e., the ``five rules'' on
+Pages 182-183] that we discussed in the lectures.
+Question: What can you deduce about the sentential form 'BwC'?
+Answer:   This sentential form contains exactly two non-terminals (one on
+each end), and there are zero or more terminals between them.
+
+Regarding the 'history of languages' in Chapter 2: I will be asking for some
+information about the highlighted languages.  A good way to study this chapter
+is to put one or two important facts about each language on the page of notes
+that you bring to the exam; that should cover the vast majority of questions
+I might ask.  [If you are unsure of what facts I consider important, the
+lecture notes are a pretty good guide, of course.]
+
+I'll ask a few simple questions about C on the exam; your experience with
+our first C program, and a review of the examples in the lecture notes.
+There are a lot of sample C programs in the xeroxed notes, but only the issues
+we have covered so far in class are 'fair game' for this sort of question on
+the midterm.  These include: Pages 9-17, 20-24, 42.
+
+If, for example, I wanted to see if you understood what was going on in numex.c
+(Page 13 of the lecture notes), I could ask what the output would be for:
+
+main() {float y,x=16.789;
+printf("abcde%6.3fg\n", y=x=3.1415926);}
+
+Note: the answer also depends on the issues discussed on page 16; the answer is:
+abcde 3.142g
+[There should be exactly one blank space between the 'e' and the '3'; I'd
+expect you to get this exactly right, too.]
+
+I'll ask a few simple questions about APL on the exam; if you successfully
+completed the APL program, these should be slam-dunk questions.  Review the
+APL tutorial [Pages 75-83].  I'm not expecting you to know the exact
+details of the 50 or so different operators that have been discussed, but you
+should certainly be familiar by now with the most common ones [and the
+main language characteristics, like precedence and associativity].
+
+The class session prior to the exam will be set aside for review.  We can
+consider some of the sample exam problems, and also go over any concepts
+that still seem confusing.
