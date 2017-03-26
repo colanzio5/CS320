@@ -1,0 +1,175 @@
+				Assignment 4
+				   CS320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+HOW TO SET UP:
+I strongly recommend that you do all your work on edoras; while you may have
+access to an alternate UNIX system, different systems have different behaviors,
+and you really don't want to discover that edoras is different at the last
+moment.  So, first make the proper directory to hold your shell script:
+
+edoras% mkdir ~/As4
+
+...and then start editing a new file called ~/As4/scriptp1 , which will
+contain a simple line of shell commands.
+
+WHAT TO PROGRAM:
+Remember that C program that you slaved over, probably for many, many hours?
+Well, we're going to implement those exact same specs again, but with
+standard UNIX utilities this time.  If you were already familiar with
+the capabilities of the UNIX utilities, this would be about a 20-minute
+exercise... but since you probably don't have that background yet, you
+should budget your time accordingly.  One thing I hope you will take away
+from this exercise is the realization that mastery of the UNIX utilities
+would make you pretty awesome.  And probably get you multiple job offers.
+
+Much like those APL operators, there are hundreds of UNIX utilities,
+each of which does something basically very simple.  However, when we
+string them together in a pipeline, they perform as filters and can do
+very sophisticated things.  Page 26 (labeled UNIX_pipes) of the lecture
+notes shows a relevant example, implementing a word-frequency counter,
+all in one line of code.  A slightly fancier version of that script is
+available for you to try out in ~cs320/freq (e.g, you could type:
+~cs320/freq < ~cs320/assignment4
+...to get a word-frequency analysis of this very file).
+
+Your script should be named ~/As4/scriptp1 , and have as the VERY first line
+
+#! /bin/csh -f
+
+to ensure that it is the C-shell that interprets your commands.  NOTE: This does
+*not* mean: 'Make it the first line now, but later put comments up above it!'
+Except for this first line of the file, the interpreter ignores everything
+between the first pound sign (#) and the end of the current line; this is
+useful for comments.  Like C programs, shell scripts should be documented;
+see the Program 1 documentation guidelines for an idea of what I want.
+Like C programs, scripts return values, which you can check with:
+edoras% echo $status
+It is possible to set the return value, but for this assignment,
+you do not need to explicitly set it to any special value.  Just
+allow it to return the default, which will be the value returned by the
+last utility in the pipeline.  Once you get your script functioning,
+investigate what those value[s] turn out to be, and DOCUMENT the conditions
+under which each value is returned.  Page 15 of the xeroxed notes discusses
+what grep returns, for example.
+
+Make sure you type:
+edoras% chmod u+x ~/As4/scriptp1
+...or you will get "Permission denied" when you try to execute it.
+
+Your script should achieve exactly what Program 1 did; see the
+specifications in Program 1 for exact requirements.  Make sure it reads
+from stdin and prints to stdout.  It should be comprised of standard
+UNIX utilities (that is, it should not invoke any specialized C programs that
+you might have considered writing).  Expect to look at the man pages to find
+out how to make the utilities you choose behave in exactly the right way.
+You MUST make use of pipes rather than using files to store intermediate
+results.  Don't make this assignment unnecessarily hard: the whole program
+can be done in ONE line (not counting all the documentation lines).
+
+EXCEPTION: Many UNIX utilities can't handle null characters ( '\000' ), so they
+just delete all of them (whether you wanted them deleted or not).  In fact,
+one utility you will be using in this assignment gets very uncooperative if you
+mention '\000' on the command line (so don't do that :-).  You should find that
+null characters get deleted "for free", without you taking any special action.
+So, even though your p1.c did not delete null characters, it's OK if scriptp1
+deletes null characters.
+
+We've already seen a UNIX utility that deals with data on a
+character-by-character basis, and it will be useful in helping delete the
+non-ASCII characters.  To find out how to fold long lines, search
+the man pages for a useful utility.  Unfortunately, trying something like:
+edoras% apropos fold
+...will find far too many utilities, including lots that mention the
+word 'folder'.  Grep can be used to throw away those false matches:
+edoras% apropos fold | grep -v folder
+(the -v option prints only lines that do NOT contain 'folder').
+edoras% apropos fold | grep -w fold
+(the -w option to grep only matches whole words).
+
+Once 'apropos' helps you determine the name of the command you want,
+you'll need to run the 'man' command on that name in order to find out
+how to specify the correct parameters to get the behavior you need.
+[For this assignment, I will give you recommendations about what utilities
+to use, but in the real world, 'apropos' will be very useful.]
+
+Investigate the utilities mentioned on page 26 of the lecture notes (you won't
+use all of them, but at least one of them will come in handy).  Other very
+useful things to investigate are 'cat', 'fold', and 'sed' (as with the APL
+assignment, there are many, many different approaches to a solution;
+high-powered utilities such as 'perl' and 'awk' could do the job, but they
+are complex and would take some time to learn -- so sticking with the simple
+utilities is probably the best).
+
+It's probably not clear how any of the utilities I've recommended can be
+used to do what is needed in assignment4... if you only briefly glance at
+the man pages.  However, each utility can do many different things,
+depending on the 'switches' you provide [a 'switch' is a command-line
+parameter that begins with a '-'].  So, you'll need to look at the man
+pages carefully enough to see what different behaviors are available.
+
+Program 1 required you to do four basic things, and there is a utility
+for easily doing each of these four things.  If you find the right ones,
+with the right switches, your program will be even shorter that the 'freq'
+example on Page 26.  Four utilities, connected by three pipelines, would be
+sufficient.  [You're not required to find the simplest solution; anything
+that works is OK.  I only mention this to convince you that you should not
+give up studying the man pages too early in the your search: the more
+research you do, the more likely you will create a short, simple solution.]
+
+Test your program (at least) on the same data used for Program 1, such as:
+edoras% scriptp1 < ~cs320/One/data1
+You may wish to redirect the output to a file, and compare it with your
+output from Program 1.  Type:
+edoras% man diff
+to read about the best way to do this comparison.  (When non-ASCII characters
+are present, you'll have to use "diff -a" rather than just "diff" to coax it
+into showing you the line-by-line differences.)  For example, try:
+edoras% ~/As4/scriptp1 < ~cs320/Data1/input1 >! a4out
+edoras% ~/One/p1 < ~cs320/Data1/input1 >! p1out
+edoras% diff -a p1out a4out
+
+GRADING CONSIDERATIONS:
+
+Refer to the documentation guidelines advertised in our first C program;
+most of those suggestions are applicable here (no extraneous prompts; explain
+your algorithm; point out any failures to meet the specs; give credit when
+you borrow code from other sources; etc.)
+
+WHAT TO HAND IN:
+Nothing!  Your program will be automatically collected, tested, and printed for
+you.  However: Make SURE that the directory is named As4 [the capitalization
+must be exact] and the file is named scriptp1, otherwise the program which
+automatically interprets it and runs it on the test data will not be
+able to find it (which would be a Very Bad Thing, earning you ZERO points
+for the program).  So, if you start at the last minute, you could waste all
+your effort due to spelling.  At a minimum, put a script in place early
+[even if it fails miserably], so that at least the preliminary tests will
+verify for you that you've named things correctly.  A common failing: if you
+[inadvisably] edit your files under Windows and then move them to edoras,
+Windows may advertise that the file name is scriptp1, but it secretly stores
+it as scriptp1.txt -- which would earn you ZERO points on this assignment.
+
+Make a copy of the directory and its contents if you wish
+to do further experimentation with the program after the due date; leave the
+original untouched until you receive a grade with which you are satisfied.
+
+The autograder will collect your program, and perform some tests on it.
+The autograder can only assign a partial numerical grade; a human (me)
+will have to look over the quality of your comments, etc.  After I check
+everything, I'll assign a grade, and eventually I'll return the printouts
+to you in class, along with handwritten comments.
+
+EXTRA CREDIT:
+The file called ~/As4/GradeEarly (note the odd capitalization) is intended
+to signal that you have completed the project a week early, and wish to
+take advantage of the extra credit reward.  The contents of the file are
+immaterial; the autograder will only test for the existence of this file.
+If the file has been created by the 120% deadline, your project will be
+picked up for grading at that time (so no further changes to your code or
+documentation will be possible).  Your score will be augmented by 20% (for
+example, if you would have normally received 70% of the points, you will
+instead qualify for 84% of the points possible).
