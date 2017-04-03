@@ -1,0 +1,17 @@
+# Colin Casazza, cssc0112
+# SED SCRIPT
+# --------------------------------------------------------------------------------------#
+
+
+# replaces '_', '?', '/', '&', ' ', with their respective ascii codes in hexidecimal
+
+s/_/%5F/g
+s/?/%3F/g
+s/:/%3A/g
+s|/|%2F|g
+s/&/%26/g
+s/ /%20/g
+
+# converts uppercase to lowercase 
+
+y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
