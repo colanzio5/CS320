@@ -1,0 +1,176 @@
+				Program 3
+				  CS 320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+HOW TO SET UP:
+While you might have a Scheme compiler on your home machine, I recommend that
+you do all your work on edoras; different systems have different behaviors,
+and you really don't want to discover that edoras is different at the last
+moment.  So, first make the proper directory to hold your .scm file:
+
+edoras% mkdir ~/Three
+
+Then copy the prototype into this directory:
+
+edoras% cp ~cs320/p3.scm ~/Three/p3.scm
+
+WHAT TO PROGRAM:
+This p3.scm file already defines some lists with which you can experiment;
+all you need to do is add the definition of three functions:
+thirds
+swap
+evenatom
+
+Each of these functions must take exactly one parameter; the parameter should
+be a list.  If your function was given the wrong number of parameters, we will
+let the interpreter complain about it.  However, if the function is given the
+wrong type of parameter (i.e., not a list), the function should return a
+friendly error message (including a newline) beginning with 'USAGE:', followed
+by an indication of the correct invocation.  For example,
+"USAGE: (thirds [list])"
+
+Here is what each function should do [assuming it is given an acceptable
+parameter]:
+
+THIRDS:
+(thirds lst) should return a new list, formed from taking just the first of
+each triple of elements in lst (so, that would be the first, fourth, seventh,
+tenth,... elements of the list).  That is, 
+(thirds '(a b c d e f g h))
+should return:
+(a d g)
+
+(thirds (LIST 's 't 'u 'v 'w 'x 'y 'z))
+should return:
+(s v y)
+
+(thirds '((a b) c (d e f) g (h i)) )
+should return:
+((a b) g))
+
+(thirds '())
+should return the empty list, etc.
+
+SWAP:
+(swap lst) should return a new list, formed by swapping the order of pairs of
+elements taken from lst (first with second, third with fourth, etc.).  That is, 
+(swap '(a b c d e f g))
+should return:
+(b a d c f e g)
+
+(swap (LIST 's 't 'u 'v 'w 'x 'y 'z))
+should return:
+(t s v u x w z y)
+
+(swap '((h i) (j k) l (m n o)))
+should return:
+((j k) (h i) (m n o) l)
+
+Both (swap '()) and (swap '(a))
+should return the list unchanged, since there is no pair to swap.
+
+EVENATOM:
+(evenatom lst) should return #t if the list lst contains an even number of
+atoms, and return #f otherwise.
+That is,
+(evenatom '((h i) (j k) l (m n o)))
+should return:
+#t
+...since there were 8 total atoms in the four-element list lst, and 8 is even.
+
+(evenatom (LIST 'a 'b 'c 'd 'e 'f 'g))
+should return:
+#f
+...since 7 is not even.
+
+(evenatom '())
+should return true, since zero is even (it's divisible by 2, with no remainder).
+
+For extra credit [extra-extra credit if you meet the early deadline], you
+can create a rswap function that behaves like a recursive version of swap.
+That is, it behaves the same as swap if the list is made up entirely of
+atoms, but if there are sublists, then those sublists get swapped around
+as well.  For example,
+
+(rswap '((h i) (j k) l (m n o)) )
+should return:
+((k j) (i h) (n m o) l)
+and 
+(rswap '((a b) c (d (e f)) g (h i)) )
+should return:
+(c (b a) g ((f e) d) (i h))
+
+If you forget a closing parenthesis, your functions will not work (you'll
+get a 'premature EOF' error).  It's critical that you use an editor that will
+match up parentheses, since there are so many of them in LISP-like languages.
+In vi, for example, if you navigate your cursor over a parenthesis and then
+type the '%' character, the vi cursor will jump to the matching parenthesis.
+If the cursor doesn't move, then you know you have a mismatch.  (In vi,
+'%' causes the same trick to happen with {} and [], too.)
+
+To start scheme and get it to pay attention to your definitions, you would do:
+scheme --load p3.scm
+...and then type commands at it (much like you did with the APL interpreter).
+[scheme, like most UNIX utilities, exits when it sees EOF, so typing a Control-D
+is the graceful way to quit scheme.]
+
+GRADING CONSIDERATIONS:
+The most important thing to remember is that you must provide me with a
+functional programming solution in order to get any credit.  Even though
+the variant of Scheme on edoras allows constants to be redefined (an example
+of this is shown in ~cs320/schemetutorial.scm), you must NOT store values;
+therefore, all three of your functions must be defined recursively [Chapter 15
+of Sebesta shows many such 'legal' scheme functions of this type].
+
+It is OK to define 'helper' functions if you find that convenient (for example,
+facthelper was a helper function for factorial on Page 679).
+
+Your program will be checked against some predefined lists (you'll find
+these are already DEFINEd in ~cs320/p3.scm for you) as well as some new lists
+that the autograder will make up.  The autograder will periodically conduct
+tests on your ~/Three/p3.scm file and mail you feedback.  However, it won't
+attempt to do anything unless you have [at least] defined the 'thirds' function.
+So, put a syntactically correct definition of the thirds function into your
+~/Three/p3.scm file early on [it doesn't have to work correctly; it merely
+has to exist and be 'legal' scheme code], or else you won't really have
+much of a clue as to what sort of tests I will be running.
+
+Refer to the documentation guidelines advertised in our first C program;
+most of those suggestions are applicable here (no extraneous prompts; explain
+your algorithm; point out any failures to meet the specs; give credit when
+you borrow code from other sources; etc.)
+
+WHAT TO HAND IN:
+Nothing!  Your program will be automatically collected, tested, and printed for
+you.  However: Make SURE that the directory is named Three [the capitalization
+must be exact] and the file is named p3.scm, otherwise the program which
+automatically interprets it and runs it on the test data will not be
+able to find it (which would be a Very Bad Thing, earning you ZERO points
+for the program).  Do not change the default permissions on the files;
+they must remain unreadable to 'group' and 'other'.  Make a copy of
+the directory and its contents if you wish to do further experimentation
+with the program after the due date; leave the original untouched until
+you receive a grade with which you are satisfied.
+
+The autograder will collect your program, interpret your definitions,
+and perform some tests on it.  The autograder can only assign a partial
+numerical grade; a human (me) will have to look over the quality of your
+comments, ensure that you are actually doing functional programming [that
+means NOT using variables; you can't get ANY credit if you try to use
+scheme as an imperative language, even if your functions produce the correct
+answers].  After I check all those things, I'll assign a grade, and eventually
+I'll return the printouts to you in class, along with handwritten comments.
+
+EXTRA CREDIT:
+The file called ~/Three/GradeEarly (note the odd capitalization) is intended
+to signal that you have completed the project a week early, and wish to
+take advantage of the extra credit reward.  The contents of the file are
+immaterial; the autograder will only test for the existence of this file.
+If the file has been created by the 120% deadline, your project will be
+picked up for grading at that time (so no further changes to your code or
+documentation will be possible).  Your score will be augmented by 20% (for
+example, if you would have normally received 80% of the points, you will
+instead qualify for 96% of the points possible).
