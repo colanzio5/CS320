@@ -1,0 +1,265 @@
+
+HOW TO SET UP:
+If you plan to use aplx on your own Windows machine, then you must download
+http://edoras.sdsu.edu/files/SSHSecureShellClient-3.2.9.exe
+and install it, so that you have ssh (for logging on to edoras) and sftp (for
+transferring files to and from edoras).  [Assuming you are using Windows;
+if you use linux on your home machine (or a Mac), these utilities should
+already be there.]
+
+				Assignment 2
+				   CS320
+
+This is the second [mini-]assignment for CS320.  If you misplace this, a copy
+can be found at ~cs320/assignment2 (The ~cs320 directory also contains all the
+other assignments and programs.)
+
+NOTE: The description of using sftp to transfer p2.dws to your workspace is
+for Windows machines.  If you have a Mac or Linux system at home, you can do
+the transfers without even logging on to edoras by using scp (Secure CoPy).
+Just open up a terminal window, and from the Mac/Linux shell prompt, type:
+scp cssc0nnn@edoras.sdsu.edu:~cs320/Two/p2.dws ~/Desktop/
+to bring down the file, and then later type:
+scp ~/Desktop/p2.dws cssc0nnn@edoras.sdsu.edu:~/Two/
+...to put it in your own ~/Two directory (of course, make sure you have
+already created ~/Two on edoras first).
+
+This assignment prepares the environment for your APL programming assignment,
+familiarizes you with the APL editor, and allows [forces!] you to practice
+moving APL workspaces and printing them.  This should make the 'real' APL
+programming assignment [slightly] less traumatic.
+
+For the purposes of this discussion, '~' means "the home directory of the
+cssc0nnn edoras account assigned to you for this class"; you may own other
+edoras accounts, but you must use this cssc account for your CS320 projects.
+Similarly, ~cs320 resolves to "the home directory of the cs320 repository".
+
+You will need to copy a file from a subdirectory of the cs320 account.
+Note that ~cs320 is a directory found only on edoras (and also note that ~cs320
+means something different than ~/cs320).  Your activity for this assignment
+should take place in a directory called ~/Two .  The material you want
+graded must be in the proper directory in your account on edoras by the due
+date to receive any credit for Assignment 2 [and Program 2].
+
+Every programming assignment for this class must be developed and run on edoras
+...except for the APL stuff.  With APL, you have the option of developing this
+on your home machine, and then transferring the workspace to edoras (by the
+deadline) for grading.  To apply to get a [free] educational license for
+Dyalog APL software, go to dyalog.com and click through the download links,
+or go directly to the application form at:
+http://dss.dyalog.com/apply.php?ltype=edu
+
+There are versions for Windows, Mac, and Linux.  (A human has to look at the
+form and approve it, so don't expect instantaneous access -- plan ahead!]
+
+You can instead (or also) do all your work via ssh (putty rather than openssh
+is recommended by Dyalog) on edoras directly.  But even in this case, you still
+need a little something from Dyalog (namely, you have to install and use
+a new font on your laptop/desktop to get the correct APL characters displayed
+in your terminal window).  To use edoras directly, go to
+http://www.dyalog.com/apl-font-keyboard.htm
+...and skip down past the part where they try to sell you a keyboard.
+Follow the directions at the bottom (notice there are tabs for Windows,
+Linux, and Mac OS -- choose the correct tab!)  If you have trouble, note that
+there are links to user guides and forum discussions in each of the tabs.
+
+If you do work at home, you'll have to download the initial workspace that
+I've created from edoras (the file is at ~cs320/Two/p2.dws).  Use scp if
+you've got a UNIX machine (MacOS is a version of BSD UNIX), and on Windows
+use sftp (a utility that was installed for you when you installed the ssh
+program on your laptop/desktop).  CAUTION: p2.dws is a binary file, not
+a text file, so it must be transferred in BINARY mode, not ASCII mode.
+
+My automation will look for your [transferred] work under the ~/Two directory
+in the cssc0nnn account I provided, so you should:
+
+edoras% mkdir ~/Two
+
+...and make sure your APL workspace is in that directory at the due date
+(so that my automation can retrieve a copy for me to test 'by hand').
+
+Under the ~cs320/Two/ directory, you will find a p2 workspace, in which I
+have initialized a few convenient functions (IDENT and MAKE_HANDS)
+and variables (HAND1, CHARS, etc.).  If you are using APL at home, you
+need ~cs320/Two/p2.dws copied to your home machine (but you must later move
+your improved, completed version to ~/Two/p2.dws in your cssc account).
+
+CAUTION: This is a binary file, not a text file.  It will be mangled if you
+transfer it in ASCII mode.  Therefore, when using sftp to move the file,
+make sure you do:
+Secure File Transfer Client --> Operation --> File Transfer Mode --> Binary
+...so that you get the un-mangled version!
+
+Once you have installed Dyalog APL, you can run it by invoking it from the
+menus as you would any other utility (but on a linux system or Mac, you should
+start it from a shell by typing 'dyalog -kbd', to insure that your window
+manager knows about the correct font).  The Windows graphical interface
+is generally friendly, but the Mac/Linux folks (or anyone, if they are
+trying to use the version of Dyalog on edoras) don't have the graphical
+buttons as a crutch, and have to use actual APL commands.  Here's what to
+do in that situation (my prompt shows 'edoras', but you might be using your
+Linux laptop or a Mac instead of edoras):
+
+Start dyalog (from a terminal window) with:
+edoras% dyalog -kbd
+and then issue the command 
+)load p2
+...if you're in the same directory where p2.dws is located.  Otherwise
+you'll have to give a specific pathname.  Alternately, avoid the )load
+with
+dyalog -kbd p2
+After you've made changes, make sure you
+)save
+(to overwrite the current workspace), or [better yet] save to a new place:
+)save p2new
+and then quit APL with the command
+)off
+
+I recommend saving lots of intermediate versions, in case something goes
+wrong (or in case you want to retreat to an earlier attempt without
+having to undo lots of editing).  Of course, when you're finished, you
+must do something like
+edoras% mv p2new.dws ~/Two/p2.dws
+...so that the latest-and-greatest version is in the proper place for the
+autograder to find.
+
+Whether you are using UNIX or Windows, your first task is to edit a
+function called 'ident' that I've provided in the p2.dws workspace for you.
+Once you've started the dyalog binary and loaded the workspace, you can verify
+that you've successfully loaded the workspace by typing
+ident
+If you get the response of 'VALUE ERROR', then there is no 'ident' function
+to be found (and no variable called 'ident', either).  This would indicate that
+you have not successfully loaded a workspace in which 'ident' is defined.  The
+response you should get from running the ident function will include the line
+
+PROGRAMMER: your name here
+
+Your first task is to edit the 'ident' function and insert your own name in
+place of 'your name here'.  To do this, you shouldd type
+)ed ident
+...to invoke the editor on this function.  A portion of your screen will
+be taken over by the editor window, and you can use the arrow keys to get
+to where you want to go, and type in any new text.  Backspace will erase,
+etc.  Hitting the 'Escape' key will save your changes and exit the editor.
+Run your newly-edited function to ensure that it reports your name correctly.
+
+CAUTION: if you just quit now, ALL your changes, including the new
+function definition, will be lost!  Make SURE you do
+)SAVE
+(assuming you are not intending to discard all your recent work).
+
+If you're using the Windows version, there are lots of drop-down menus to
+help you do things (there are menus for loading, saving, etc., a 'language bar'
+where you can click on the crazy characters to 'type' them, a convenient way
+to print all the functions in your workspace, etc.)
+
+An [inconvenient] three-picture graphic of where the keys are is at
+
+http://help.dyalog.com/15.0/Content/UserGuide/The%20APL%20Environment/Class ic%20Ed
+ition%20Keyboard.htm#Classic_Edition_Keyboard
+
+The graphic just before the APL tutorial in the lecture notes sums it all up
+in a fairly succinct way.  However, you probably won't set things up with
+'Alt' as the modifier key; Dyalog recommends the 'Super' (Windows) key for
+Linux (though you might have to disable some other utility that currently
+reacts to 'Super'), MacOS uses the back-quote (typically paired with the "~"
+key), and Windows is set up to use the Control key (which means C, X, and V
+behave slightly differently in the Windows environment; Control-C means 'Cut'
+to Windows, so to get the APL character, you have to use Shift+Control-C, etc.)
+
+WHAT TO PROGRAM:
+Your Assignment 2 will modify the 'ident' function that is already defined in
+the p2 workspace.  'ident' contains some comments, and lines 3 and 4 simply prints
+CS320
+your name here
+
+To invoke the function, you would simply type:
+IDENT
+...to see these lines printed.  (Don't use the shift key, or you'll type
+gibberish!)
+
+Your task is to replace 'your name here' in line4 with your own first and
+last name, appropriately capitalized.  (As the keyboard layout indicates,
+typing the 'z' key produces a capital Z; you need to type Alt-Z in order
+to get a lowercase z.  Except for intial letters, your name should be
+mostly lowercase.  After you've made your changes, you must save the
+function before you can test it (see directions above).  Equally important,
+you must save the workspace (see directions above) if you want your new
+definition to be stored in the p2.dws workspace on disk.
+
+Type:
+IDENT
+...again, and verify it is printing what you want.  Once you are satisfied
+(and have saved the workspace!) you can create a printout of the results.
+This is easy under Windows; there is a 'Print' option under the 'File'
+drop-down menu.  If you're not using Windows, you'll have to be trickier.
+Display the function as shown in the tutorial in my lab notes, then take
+a screenshot of your terminal window, and print that.
+
+WHAT TO HAND IN:
+1) You must have your APL workspace, named ~/Two/p2.dws (which must be a
+different size than ~cs320/Two/p2.dws, indicating that you actually added
+something to my initial workspace!) in place by the due date.
+My automation will make a copy of this on the due date, which I will test
+'by hand' (to see that IDENT prints your name correctly).
+
+2) A printout of your workspace (as described above; it's tricky to do if
+you're not using Windows.  (The Windows version has a 'Print' option under
+the 'File' dropdown, making it trivial to do.)  If you have the UNIX version,
+you may have to display the contents of the function and then take a screenshot.
+
+Summary of Assignment 2:
+1. Create a ~/Two directory.
+2. Copy the ~cs320/Two/p2.dws APL workspace to your machine (that is, to your
+   own laptop or desktop, or to a machine in GMCS425).
+3. Edit p2.dws, so that IDENT prints your name (first+last capitalized correctly)
+4. Save your workspace, and move the [new] version back to edoras:~/Two/p2.dws
+5. Print your workspace, and hand in the printout at the beginning of class.
+[Make sure you select the correct option to print the entire workspace, not
+just the one function, or just the current window contents.]  Check that it
+'looks right': if you see non-APLish symbols, this means the fonts did not get
+installed correctly.  Macintosh user can find the cure for this in the
+http://www.microapl.co.uk/apl/aplx_forum.html
+forum pages.  The basic procedure is:
+From the menu bar, go to APLX/Preferences, which brings up a new window.
+By default "Use bitmapped font" is selected.  Change to "Use True Type font."
+Make sure to restart aplx to see the changes take effect.
+
+
+
+The due date for this assignment (and future assignments) can be found
+in the file ~cs320/calendar on edoras.
+
+IGNORE this paragraph UNLESS you are using linux.
+If you're using the older linux aplx installation, there are some things
+that need updating.  The startup script was probably installed as
+/usr/local/aplxpe/bin/startaplx, and will benefit from some editing.
+Line 12 of this file is:
+APLX_PRINT_FONT_PATH=/usr/lib/X11/fonts/Type1
+If you have a /usr/lib/X11/fonts/Type1 directory, fine.  If not, change
+the path to the appropriate directory (on my ubuntu system, this needs to be:
+APLX_PRINT_FONT_PATH=/usr/share/fonts/X11/Type1
+).  Then add the following two lines near the top of the file:
+savedir=`pwd` # use backquotes (`, not ') in this line.
+LANG=en_US;export LANG
+Finally, just above the last two lines of startaplx, add this line:
+cd $savedir
+Now as long as you run startaplx from the directory containing p2.dws,
+)LOAD p2
+will work, without needing a full pathname.
+
+IGNORE this paragraph UNLESS you are using a Macintosh.
+There is sometimes an issue with getting weird fonts when you install aplx on
+a Macintosh system.  The work-around, after installation, is as follows:
+
+1) Go to the fonts sub-folder where you installed APLX. For example:
+"Macintosh HD -> Applications -> APLX 5.1 Demo -> fonts"
+
+(2) You should find two files called "aplx_unicode_mac.ttf" and "APLX Bitmapped"
+
+(3) Copy these two files to the Library/Fonts folder on your machine, for example:
+        "Macintosh HD -> Library -> Fonts"
+
+(4) Relaunch APLX.
+http://microapl.freeforums.org/can-t-setup-keyboard-properly-t248.html
