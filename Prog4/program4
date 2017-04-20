@@ -1,0 +1,176 @@
+				Program 4
+				  CS 320
+
+Reread the Policy statement at the beginning of the class notes; you MUST
+do your own work on all assignments and programs.  The file ~cs320/calendar will
+contain all published deadlines, including occasional extra credit deadlines.
+
+HOW TO SET UP:
+edoras% mkdir ~/Four
+
+You will be adding more functionality to the C program you wrote at the
+beginning of the course, so a possible starting point might be:
+edoras% cp ~/One/p1.c ~/Four/p4.c
+
+WHAT TO PROGRAM:
+Write a C program (stored in ~/Four/p4.c) that will read data from standard
+input one character at a time and output the results to standard output.
+Roughly, your program will do what p1.c did (delete all non-ASCII characters,
+change the case of alphabetic characters, and make browser-friendly adjustments
+to the characters _, /, :, ?, &, and space) BUT print each line 'backwards'.
+Specifically, for each character you read, do the following 4 things:
+
+1) Replace each of the characters '_', '/', ':', '?', '&', and ' ' (the
+   space character) with a three-character sequence, consisting of a '%'
+   character followed by the two hexadecimal digits corresponding to the
+   character's ASCII represenation.
+
+2) Interchange the case of the alphabetic letters.
+
+3) delete all non-ASCII characters (character codes 128 through 255).
+
+4) Other characters are printed verbatim, BUT lines should be 'folded'
+   so that no line is longer than 20 printable characters.  In program1,
+   this meant that long lines turned into several 20-character lines
+   (26 including the newline), with the LAST line possibly being shorter.
+   BUT in program4, you should make the FIRST line the short one (so that
+   all subsequent lines are 20 characters long.  For example:
+
+google.COM/search?client=SuSE&q=AD.com:Some Pat_tern
+is massaged into
+GOOGLE.com%2FSEARCH%3FCLIENT=sUse%26Q=ad.COM%3AsOME%20pAT%5FTERN
+...but then once the extra newlines are inserted for printing, it
+actually looks like:
+
+GOOG
+LE.com%2FSEARCH%3FCL
+IENT=sUse%26Q=ad.COM
+%3AsOME%20pAT%5FTERN
+
+Your p4 should also pay attention to command-line parameters.  Invoked as:
+p4
+...your program MUST read from stdin, but if invoked as:
+p4 somefilename anotherfilename
+...then your program MUST instead fopen() "somefilename" for reading, and then
+use getc() on this new filestream (in much the same way as you used getchar()
+when reading from stdin).  Indeed, getchar() is actually defined as getc(stdin),
+so it makes sense to just use getc() in every case.  If additional names are
+listed on the command line, each file should be processed in turn (and so
+"anotherfilename" would also be open()ed, read, and printed in the above
+example -- much the same way the 'cat' command works).
+
+The relevant material in the Foster text is Chapter 4, Chapter 5, and perhaps
+Section 6.4.  You can use the neat stuff discussed in Sections 5.4 and 5.5,
+though it's also OK to do some of this "by hand", as Section 5.6 illustrates.
+The normal C string paradigm will work exceptionally well in this program.
+Using %s in your printf() statement, and pointing to the correct starting
+character, makes it trivial to get exactly the right number of characters
+printed, with ONE printf(), WITHOUT using a loop.
+
+To handle command-line parameters, see Section 9.6 of Foster (Section 9.5 gives
+an introduction to the relevant data structures).  Pages 52 through 54 of the
+lecture notes also illustrate the concept.  fopen() and getc() are explored in
+Sections 10.2 and 10.3 of Foster, respectively.  Remember, the Foster sample
+programs are available online on edoras under the ~masc0000/CbyDiscovery/ch*
+directories; you can liberally borrow code from them, but you MUST credit the
+source in your documentation.  If you are given a (command-line) list of files,
+and encounter a file that is nonexistent/unreadable, this error should be 
+reported (on stderr), but you should then continue opening/reading/processing
+any subsequent files (rather than just quitting at the first error).
+
+Data MUST be stored internally as arrays, and MUST *NOT* be written to an
+intermediate file.  You MUST put the data you wish to print out in a
+one-dimensional array.  I recommend using the array to 'typeset' a single
+line of text, then print it out, and then reuse the same array space for
+the next line, and so on.
+
+If some files are unreadable, [at least] an appropriate error message MUST be
+sent to stderr.  [If we have not yet covered writing to files, all you really
+need to do is replace the statement
+printf(whatever);
+with
+fprintf(stderr, whatever);
+in your code (there is an example using stderr on Page 542 of Foster).]
+Normally, stdout and stderr both go to the screen.  So, you can test this with:
+p4 realfile nonexistentfile  > myresults
+...because '>' only redirects stdout: you should find your printf() data in the
+"myresults" file, but anything going to stderr will still display on the screen.
+
+Your main program MUST return a value when it finishes.  Return one (1) if
+the output was unchanged from the input that was read in, and return zero (0)
+if you made at least one change (either by removing non-ASCII characters,
+expanding web-relevant characters, or changing case).  However, if there
+were errors (e.g., such as in the previous paragraph), you should return
+something other than 0 or 1 [you choose, but DOCUMENT your choice(s)].
+
+If you want an opportunity for extra credit (or even extra-extra credit, if you
+finish it all a week early), you can arrange for p4 to handle the "-o" option:
+p4 -o my_output
+p4 file1 -o my_output file2
+...should do [almost] what p4 does, except that instead of printing the
+processed data on stdout, all the data should be written to my_output (or whatever
+name happens to follow the "-o" argument).  [So, don't try to READ a file called
+"-o" or "my_output"; in the example above, we read (only) file1 and file2.]
+Of course, a command like
+p4 file1 -o
+...should be flagged as an error, since no filename followed the "-o" parameter.
+There should be a unique return value for this case, of course.
+[If, say, file1 does not exist in the above example, then an error message
+would go to stderr (which would go to your screen, NOT the my_output file).]
+
+NOTE: if you are NOT attempting the extra credit, then you would indeed try to
+read four files when presented with
+p4 file1 -o my_output file2 
+...and most likely generate some error messages [assuming you don't happen
+to already have a file called "-o" or "my_output"].
+
+GRADING CONSIDERATIONS:
+Remember that the previous C program was the only one that could be coded as
+one monolithic main() function.  This program MUST use a modular design.
+In this particular assignment, put all the code you write
+in ~/Four/p4.c; do not create your own .h files or other .c files.
+There are several distinct tasks that can naturally be split into
+multiple modules; you MUST have at least one [non-trivial] function
+in addition to main().
+
+Your program will be checked against several test files.  You should exercise
+your solution on a sufficiently wide array of test cases to ensure that you
+are handling all special cases correctly.
+
+Document your program; the leading comments MUST indicate the author's name,
+date created, class, instructor, and the purpose of the program.  This is also
+a good place to note any hardware/software dependencies on which your program
+relies.  Explain any 'magic constants', and AVOID them when possible; e.g., use
+'\n', NOT 10, when describing a newline.  See the guidelines in the program1
+file as well; they apply to all our programs, so review them now.  Among the
+most important is:
+If your program does not work correctly in all cases (or the design
+could be improved), note this in the documentation.
+
+Where the program design specifications allow you to choose different
+strategies, make sure you document your decisions.  For example, there
+are many ways to store the data in the one-dimensional array; explain
+which way you chose, and why.  (For example, do you store the newline in the
+array itself, or print it separately after the rest of the string is printed?)
+
+WHAT TO HAND IN:
+Nothing!  Your program will be automatically collected, tested, and printed
+for you.  Not that this program MUST be developed ON ROHAN; make SURE
+that the directory is named Four and the file is named p4.c, otherwise
+the program which automatically compiles it and runs it on the test data will
+not be able to find it.  Do not change the default permissions on the files;
+they MUST remain unreadable to 'group' and 'other'.  Make a copy of
+the directory and its contents if you wish to do further experimentation
+with the program after the due date; leave the original untouched until
+you receive a grade with which you are satisfied.
+
+EXTRA CREDIT:
+The file called ~/Four/GradeEarly (note the odd capitalization) is intended
+to signal that you have completed the project a week early, and wish to
+take advantage of the extra credit reward.  The contents of the file are
+immaterial; the autograder will only test for the existence of this file.
+If the file has been created by the 125% deadline, your project will be
+picked up for grading at that time (so no further changes to your code or
+documentation will be possible).  Your score will be augmented by 25% (for
+example, if you would have normally received 60% of the points, you will
+instead qualify for 75% of the points possible).
