@@ -19,7 +19,8 @@ int main(int argc, char *argv[])
    while( ( ch = fgetc(fp) ) != EOF ){
       printf("%c",ch);
    }
- 
+
+   system("echo hello1234"); 
    fclose(fp);
    return 0;
 }

@@ -1,0 +1,3 @@
+#!/bin/csh -f
+tr -d '\200-\377' | tr "A-Za-z" "a-zA-Z" | sed -e 's/_/%5F/g' -e 's/?/%3F/g' -e 's/:/%3A/g' -e 's|/|%2F|g' -e 's/&/%26/g' -e 's/ /%20/g' | fold -w 20
+
