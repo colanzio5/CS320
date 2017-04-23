@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,6 +19,10 @@ int main(int argc, char *argv[]){
 					printf("%c", toupper(ch));
 					count++;
 				}
+			}
+			else if( (ch == '\t'))	{
+				printf("%%%x",ch);
+			
 			}
 
 			else	{
