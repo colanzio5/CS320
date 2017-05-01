@@ -26,7 +26,6 @@ void fold(char c[]){
 			return;
 		}
 	}
-	free(c);
 }
 
 void caseswap(char s[]){
@@ -64,7 +63,8 @@ void foldprint(char c[], int index){
 	}
 }
 
-void parse(char s[], char t[]){
+
+void parse(char s[]){
 	int c = 0;
 	int d = 0;
 	char ch;
@@ -72,56 +72,51 @@ void parse(char s[], char t[]){
 	while (s[c] != '\0'){
 		ch = s[c];		
 		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
-			t[d] = '%';
-			d++;
+			s[c] = '%';
+			c++;
 			if(ch=='_'){
-				t[d] = '5'; d++;
-				t[d] = 'F'; d++;
+				
+				addchar(s,c,'5'); 
+				addchar(s,c,'F'); c++;
 			}
-			if(ch=='/'){
-				t[d] = '2'; d++;
-				t[d] = 'F'; d++;
+			/* if(ch=='/'){
+				addchar(s,c,'2'); c++;
+				addchar(s,c,'F'); c++;
 			}
 			if(ch==':'){
-				t[d] = '3'; d++;
-				t[d] = 'A'; d++;
+				addchar(s,c,'3'); c++;
+				addchar(s,c,'A'); c++;
 			}
 			if(ch=='?'){
-				t[d] = '3'; d++;
-				t[d] = 'F'; d++;
+				addchar(s,c,'3'); c++;
+				addchar(s,c,'F'); c++;
 			}
 			if(ch=='&'){
-				t[d] = '2'; d++;
-				t[d] = '6'; d++;
+				addchar(s,c,'2'); c++;
+				addchar(s,c,'6'); c++;
 			}
 			if(ch==' '){
-				t[d] = '2'; d++;
-				t[d] = '0'; d++;
-			}
-			
+				addchar(s,c,'2'); c++;
+				addchar(s,c,'0'); c++;
+			} */
+		}
+		else{
 			c++;
 		}
-		else {
-			t[d] = ch;
-			d++; c++;
-		}	
 	}
 }
 
 void addchar(char c[], int pos, char foo){
 	int length = strlen(c);
 	int i = 0;
-	char ch = c[length-1];
-	while(length>=pos){
-		if(length == pos){
-			c[length] = (char)foo;
-		}
-		else{
-			c[length] = c[length-1];
-		}
+	
+	c[length+1]= '\0';
+
+	while(length > pos){
+		c[length] = c[length - 1];
 		length--;
 	}
-	
+	c[pos-1] = foo;
 }
 
 int main(int argc, char *argv[]){
@@ -147,12 +142,13 @@ int main(int argc, char *argv[]){
 		
 		
 		caseswap(s);
-		parse(s,t);
-		fold(t);
-		memset(t,0,strlen(t));
-		memset(t,0,strlen(t));
+		parse(s);
+		fold(s);
 		
+		printf("%c",s);
 		
+		memset(s,0,strlen(s));
+		memset(t,0,strlen(t));	
 		
 	}
   	
