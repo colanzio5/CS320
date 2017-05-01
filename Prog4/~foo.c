@@ -107,6 +107,41 @@ void parse(char s[], char t[]){
 		}	
 	}
 }
+void parse(char s[]){
+	int c = 0;
+	int d = 0;
+	char ch;
+	
+	while (s[c] != '\0'){
+		ch = s[c];		
+		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
+			s[c] = '%';
+			c++;
+			if(ch=='_'){
+				addchar(s,c,'5'); c++;
+				addchar(s,c,'F'); c++;
+			}
+			if(ch=='/'){
+				addchar(s,c,'2'); c++;
+				addchar(s,c,'F'); c++;
+			}
+			if(ch==':'){
+				addchar(s,c,'3'); c++;
+				addchar(s,c,'A'); c++;
+			}
+			if(ch=='?'){
+				addchar(s,c,'3'); c++;
+				addchar(s,c,'F'); c++;
+			}
+			if(ch=='&'){
+				addchar(s,c,'2'); c++;
+				addchar(s,c,'6'); c++;
+			}
+			if(ch==' '){
+				addchar(s,c,'2'); c++;
+				addchar(s,c,''); c++;
+			}
+			
 
 void addchar(char c[], int pos, char foo){
 	int length = strlen(c);
@@ -150,9 +185,7 @@ int main(int argc, char *argv[]){
 		parse(s,t);
 		fold(t);
 		memset(t,0,strlen(t));
-		memset(t,0,strlen(t));
-		
-		
+		memset(t,0,strlen(t));	
 		
 	}
   	
