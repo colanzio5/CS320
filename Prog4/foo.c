@@ -17,18 +17,11 @@ void fold(char c[]){
 	int bool = 1;
 	char ch;
 	length = strlen(c);
-	length--;
+	off = length % 20;
+	off--;
 	
 	int i = 0;
-	while(i < length){
-		ch = c[i];
-		if((i == off)){
-			addchar(c, i, "\n");
-			bool = 0;
-		}
-		count++;
-		i++;
-	}
+	foldprint(c,off);
 }
 
 void caseswap(char s[]){
@@ -45,17 +38,22 @@ void caseswap(char s[]){
 }
 
 
-void foldprint(char c[], int index){
-	int i = index;
+void foldprint(char c[], int off){
+	int i = 0;
 	int count = 0;
 	int length = strlen(c);
+	int bool = 1;
 	
 	char ch;
 	while(i <= length){
 		ch = c[i];
+		if((i == off) && (bool == 1)){
+			printf("\n");
+			bool = 0;
+			count = 0;
+		}
 		if(count == 20){
 			printf("\n");
-			printf("%c",ch);
 			count = 0;
 		}
 		else{
@@ -68,21 +66,22 @@ void foldprint(char c[], int index){
 }
 
 
-void parse(char s[]){
+void parse(char s[], char t[]){
 	int c = 0;
 	int d = 0;
 	char ch;
 	
 	while (s[c] != '\0'){
-		ch = s[c];
-		c++;		
-		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
-			s[c] = '%'; 			//REPLACE WITH %(asciicode)
-			if(ch=='_'){			//ex. _ is replaced with %5F
-				addchar(s,d,"5");
-				addchar(s,d,"F");
-			}
+		ch = s[c];				//REPLACE WITH %(asciicode)
+		if(ch=='_'){		
+			addchar(t,d,"%5F");	//ex. _ is replaced with %5F
+			d = d + 3;
+		}			 
+		else{
+			addchar(t,d,ch);
+			d++;
 		}
+		c++;
 	}
 }
 
@@ -107,6 +106,7 @@ int main(int argc, char *argv[]){
 	char eh, q[1024];
 		
 	fp = fopen(argv[1], "r");
+	
    	if(fp == NULL ) {
 		printf("Input File Was Null");
 		perror(argv[0]);
@@ -116,15 +116,12 @@ int main(int argc, char *argv[]){
    	while (fgets( s, sizeof s, fp) != NULL ){
 		
 		caseswap(s);
-		//parse(s);
+		//parse(s,t);
 		
-		
-		//fold(s);
-		print(s);
+		fold(s);
 		
 		memset(s,0,strlen(s));
-		memset(t,0,strlen(t));	
-		
+		memset(t,0,strlen(t));		
 	}
   	
    	fclose( fp );
