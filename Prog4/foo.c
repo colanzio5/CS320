@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void addchar(char destination[], int pos, char *seed){
+	char * strC;
+
+	strC = (char*)malloc(strlen(destination)+strlen(seed)+1);
+	strncpy(strC,destination,pos);
+	strC[pos] = '\0';
+	strcat(strC,seed);
+	strcat(strC,destination+pos);
+	strcpy(destination,strC);
+	free(strC);
+}
 void fold(char c[]){
 	int count, length, off;
 	int bool = 1;
@@ -8,23 +19,15 @@ void fold(char c[]){
 	length = strlen(c);
 	length--;
 	
-	off = length % 20;
-	count = 0;
-	addchar(c,off,'\n');
-	
 	int i = 0;
-	while(count < length){
+	while(i < length){
 		ch = c[i];
-		printf("%c",ch);
+		if((i == off)){
+			addchar(c, i, "\n");
+			bool = 0;
+		}
 		count++;
 		i++;
-		if(count == off){
-			ch = c[i];
-			printf("%c",ch);
-			off++;
-			foldprint(c,off);
-			return;
-		}
 	}
 }
 
@@ -61,6 +64,7 @@ void foldprint(char c[], int index){
 			count++;
 		}
 	}
+	printf("\n");
 }
 
 
@@ -70,54 +74,25 @@ void parse(char s[]){
 	char ch;
 	
 	while (s[c] != '\0'){
-		ch = s[c];		
+		ch = s[c];
+		c++;		
 		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
-			s[c] = '%';
-			c++;
-			if(ch=='_'){
-				
-				addchar(s,c,'5'); 
-				addchar(s,c,'F'); c++;
+			s[c] = '%'; 			//REPLACE WITH %(asciicode)
+			if(ch=='_'){			//ex. _ is replaced with %5F
+				addchar(s,d,"5");
+				addchar(s,d,"F");
 			}
-			/* if(ch=='/'){
-				addchar(s,c,'2'); c++;
-				addchar(s,c,'F'); c++;
-			}
-			if(ch==':'){
-				addchar(s,c,'3'); c++;
-				addchar(s,c,'A'); c++;
-			}
-			if(ch=='?'){
-				addchar(s,c,'3'); c++;
-				addchar(s,c,'F'); c++;
-			}
-			if(ch=='&'){
-				addchar(s,c,'2'); c++;
-				addchar(s,c,'6'); c++;
-			}
-			if(ch==' '){
-				addchar(s,c,'2'); c++;
-				addchar(s,c,'0'); c++;
-			} */
-		}
-		else{
-			c++;
 		}
 	}
 }
 
-void addchar(char c[], int pos, char foo){
-	int length = strlen(c);
-	int i = 0;
-	
-	c[length+1]= '\0';
-
-	while(length > pos){
-		c[length] = c[length - 1];
-		length--;
-	}
-	c[pos-1] = foo;
+void print(char *t) {
+   if (*t == '\0')
+      return;
+   printf("%c", *t);
+   print(++t);
 }
+
 
 int main(int argc, char *argv[]){
 
@@ -140,12 +115,12 @@ int main(int argc, char *argv[]){
 
    	while (fgets( s, sizeof s, fp) != NULL ){
 		
-		
 		caseswap(s);
-		parse(s);
-		fold(s);
+		//parse(s);
 		
-		printf("%c",s);
+		
+		//fold(s);
+		print(s);
 		
 		memset(s,0,strlen(s));
 		memset(t,0,strlen(t));	
