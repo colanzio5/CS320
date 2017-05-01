@@ -3,14 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-//Colin Casazza
-//cssc0112
-//John Carroll
-//CS3320
-//Program 4
-
-
 void caseswap(char s[]){
 	int c = 0;
 	char ch;
@@ -107,7 +99,7 @@ void fold(char out[]){
 void addchar(char out[], int index, int length){
 	int k = 0;
 	char ch = out[k];
-	while(k < length -1){
+	while(k < length){
 		k++;
 		ch = out[k];
 	}
@@ -119,7 +111,7 @@ void addchar(char out[], int index, int length){
 		}
 		k--;
 	}
-}clear
+}
 
 void noascii(char out[]){
 	int i = 0;
