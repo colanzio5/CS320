@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void addchar(char destination[], int pos, char *seed){
-	char * strC;
+void addchar(char d[], int pos, char *s){
+	char * b;
 
-	strC = (char*)malloc(strlen(destination)+strlen(seed)+1);
-	strncpy(strC,destination,pos);
-	strC[pos] = '\0';
-	strcat(strC,seed);
-	strcat(strC,destination+pos);
-	strcpy(destination,strC);
-	free(strC);
+	b = (char*)malloc(strlen(d)+strlen(s)+1);
+	strncpy(b,d,pos);
+	b[pos] = '\0';
+	strcat(b,s);
+	strcat(b,d+pos);
+	strcpy(d,b);
+	free(b);
 }
 void fold(char c[]){
 	int count, length, off;
@@ -62,7 +62,6 @@ void foldprint(char c[], int off){
 			count++;
 		}
 	}
-	printf("\n");
 }
 
 
@@ -72,18 +71,44 @@ void parse(char s[], char t[]){
 	char ch;
 	
 	while (s[c] != '\0'){
-		ch = s[c];				//REPLACE WITH %(asciicode)
-		if(ch=='_'){		
-			addchar(t,d,"%5F");	//ex. _ is replaced with %5F
-			d = d + 3;
-		}			 
-		else{
-			addchar(t,d,ch);
+		ch = s[c];		
+		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
+			t[d] = '%';
 			d++;
-		}
+			if(ch=='_'){
+				t[d] = '5'; d++;
+				t[d] = 'F'; d++;
+			}
+			if(ch=='/'){
+				t[d] = '2'; d++;
+				t[d] = 'F'; d++;
+			}
+			if(ch==':'){
+				t[d] = '3'; d++;
+				t[d] = 'A'; d++;
+			}
+			if(ch=='?'){
+				t[d] = '3'; d++;
+				t[d] = 'F'; d++;
+			}
+			if(ch=='&'){
+				t[d] = '2'; d++;
+				t[d] = '6'; d++;
+			}
+			if(ch==' '){
+				t[d] = '2'; d++;
+				t[d] = '0'; d++;
+			}
+			
 		c++;
+		}
+		else {
+			t[d] = ch;
+			d++; c++;
+		}	
 	}
 }
+
 
 void print(char *t) {
    if (*t == '\0')
@@ -116,9 +141,8 @@ int main(int argc, char *argv[]){
    	while (fgets( s, sizeof s, fp) != NULL ){
 		
 		caseswap(s);
-		//parse(s,t);
-		
-		fold(s);
+		parse(s,t);
+		fold(t);
 		
 		memset(s,0,strlen(s));
 		memset(t,0,strlen(t));		
