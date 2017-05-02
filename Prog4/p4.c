@@ -1,15 +1,28 @@
- 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
+void addchar(char d[], int pos, char *s){
+	char * b;
 
-//Colin Casazza
-//cssc0112
-//John Carroll
-//CS3320
-//Program 4
-
+	b = (char*)malloc(strlen(d)+strlen(s)+1);
+	strncpy(b,d,pos);
+	b[pos] = '\0';
+	strcat(b,s);
+	strcat(b,d+pos);
+	strcpy(d,b);
+	free(b);
+}
+void fold(char c[]){
+	int count, length, off;
+	int bool = 1;
+	char ch;
+	length = strlen(c);
+	off = length % 20;
+	off--;
+	
+	int i = 0;
+	foldprint(c,off);
+}
 
 void caseswap(char s[]){
 	int c = 0;
@@ -21,8 +34,36 @@ void caseswap(char s[]){
       		else if (ch >= 'a' && ch <= 'z')
          		s[c] = s[c] - 32;   
       		c++;   
-   	}	
+   	}	 
 }
+
+
+void foldprint(char c[], int off){
+	int i = 0;
+	int count = 0;
+	int length = strlen(c);
+	int bool = 1;
+	
+	char ch;
+	while(i <= length){
+		ch = c[i];
+		if((i == off) && (bool == 1)){
+			printf("\n");
+			bool = 0;
+			count = 0;
+		}
+		if(count == 20){
+			printf("\n");
+			count = 0;
+		}
+		else{
+			printf("%c",ch);
+			i++;
+			count++;
+		}
+	}
+}
+
 
 void parse(char s[], char t[]){
 	int c = 0;
@@ -30,7 +71,7 @@ void parse(char s[], char t[]){
 	char ch;
 	
 	while (s[c] != '\0'){
-		ch = s[c];		
+		ch = s[c];
 		if ((ch=='_')||(ch=='/')||(ch==':')||(ch=='?')||(ch=='&')||(ch==' ')){
 			t[d] = '%';
 			d++;
@@ -61,6 +102,9 @@ void parse(char s[], char t[]){
 			
 		c++;
 		}
+		if((ch < 0) || (ch > 127)){
+			c++;
+		}
 		else {
 			t[d] = ch;
 			d++; c++;
@@ -68,77 +112,7 @@ void parse(char s[], char t[]){
 	}
 }
 
-void fold(char out[]){
-	int count = 0;
-	int length;
-	
-	int i = 0;
-	char ch;
-	int off;
-	
-	ch = out[count];
-	while(ch != '\n'){
-		count++;
-		ch = out[count];
-	}
-	
-	length = count;	
-	count--;	 
-	off = count % 20;
-	off++;
 
-	addchar(out,off,length);
-	
-	i = 0;
-	ch = out[off];
-	
-	while(off <= count){
-		if(i == 20){
-			addchar(out,off,length);
-			i = 0;
-		}
-		i++;
-		off++;
-		ch = out[off];
-	}
-	out[off+1] = '\n';		
-}
-
-void addchar(char out[], int index, int length){
-	int k = 0;
-	char ch = out[k];
-	while(k < length -1){
-		k++;
-		ch = out[k];
-	}
-	k--;
-	while(k >= index){
-		out[k+1] = out[k];
-		if(k == index){
-			out[k] = '\n';
-		}
-		k--;
-	}
-}clear
-
-void noascii(char out[]){
-	int i = 0;
-	int j = 0;
-	char ch = out[i];
-	
-	while(ch != '\0'){
-		if(ch > 127){
-			j = i;
-			while(out[j] != '\0'){
-				out[j] = out[j+1];
-				j++;
-			}	
-		}
-		i++;
-		ch = out[i];
-	}
-}
- 
 void print(char *t) {
    if (*t == '\0')
       return;
@@ -147,12 +121,9 @@ void print(char *t) {
 }
 
 
-
-	
-
 int main(int argc, char *argv[]){
-
 	
+	int i = 1;
 	FILE *fp;
 	int c = 0;
 	char ch, s[1024];
@@ -160,23 +131,29 @@ int main(int argc, char *argv[]){
 	int d = 0;
 	char dh, t[1024];
 		
-	fp = fopen(argv[1], "r");
-   	if(fp == NULL ) {
-		printf("Input File Was Null");
-		perror(argv[0]);
-		exit(0);
-	}
+	while(i < argc){
+		fp = fopen(argv[i], "r");
+	
+   		if(fp == NULL ) {
+			printf("Input File Was Null");
+			perror(argv[0]);
+			exit(0);
+		}
+		printf("\n");
+   		while (fgets( s, sizeof s, fp) != NULL ){
+		
+			caseswap(s);
+			parse(s,t);
+			fold(t);
+	
+		
+			memset(s,0,strlen(s));
+			memset(t,0,strlen(t));		
+		}
 
-   	while (fgets( s, sizeof s, fp) != NULL ){
-		
-		caseswap(s);
-		noascii(s);
-		parse(s,t);
-		fold(t);
-		print(t);
-		
+   		fclose( fp );
+		i++;
 	}
-  	
-   	fclose( fp );
 	exit(-1);
 }
+
