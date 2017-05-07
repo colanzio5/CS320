@@ -1,3 +1,25 @@
+UPDATE on the midterm exam coverage for CS320, Spring 2017:
+We didn't quite finish Chapter 5, so material for 'legal' midterm questions
+stops at the end of Section 5.5.2.  So, some of the sample problems I
+originally advertised won't appear on the midterm (but may well show
+up on the final).  There's actually only 3 lines of the original announcement 
+that need to be changed:
+
+Old: The exam will cover Chapters 1 through 5, and the various supplemental...
+NEW: The exam will cover Chapters 1 through 5.5.2, and the various supplemental...
+Old: Chapter 5 (Page 240): 3,6,7,8,9,10,12,16,20
+NEW: Chapter 5 (Page 240): 3,6,7,8,9,10,12
+Old: Chapter 5 Problem Set questions (Page 241): 2,10,11a
+NEW: Chapter 5 Problem Set questions (Page 241): 2,10
+
+Everything else is still the same.  (This updated version is now 
+in ~cs320/midterm_advice, but for convenience, the revision is
+also appended below.)
+
+Cheers,
+jc
+
+REVISED Version:
 The midterm for CS320 is scheduled for Thursday, March 23, 2017.
 
 Page numbers in this document are for the NINTH edition of Sebesta.
@@ -23,7 +45,7 @@ answers to the exam.  (I'll also bring some paper, in case anyone runs out.)
 If you have non-standard size paper, or paper you're pulling out of a
 spiral-bound notebook, PLEASE use the paper I provide instead!
 
-The exam will cover Chapters 1 through 5, and the various supplemental
+The exam will cover Chapters 1 through 5.5.2, and the various supplemental
 materials we have discussed in class; specifics are given below.
 The in-class xeroxed lecture notes form a fairly accurate guide to the material
 we have covered.  We SKIPped Sections 3.4 and 3.5, so you do NOT have to
@@ -43,7 +65,7 @@ Chapter 1 (Page 34): 1,3,4,5,6,12,14,19,20,23,26,27,28
 Chapter 2 (Page 109): 1,10,14,15,21,26,35,41
 Chapter 3 (Page 164): 1,3,4,5,6
 Chapter 4 (Page 204): 1,2,3,7,8,9,12,21,23,24
-Chapter 5 (Page 240): 3,6,7,8,9,10,12,16,20
+Chapter 5 (Page 240): 3,6,7,8,9,10,12
 
 Many of the Sebesta review questions are of the form:
 "Give a definition for [something]"
@@ -57,7 +79,7 @@ In this regard, some of the Sebesta 'Problem Set' questions are better
 models of exam questions.  Here are the ones that I had suggested:
 Chapter 3 Problem Set questions (Page 165): 3,7c,10,11
 Chapter 4 Problem Set questions (Page 205): 7,8
-Chapter 5 Problem Set questions (Page 241): 2,10,11a
+Chapter 5 Problem Set questions (Page 241): 2,10
 (Of course, I'd only ask one or two intermediate steps for 7 or 8 in Chapter 4,
 not the whole parse trace, but doing the entire problem is good practice.
 There will absolutely, definitely be [a small part of] something like this

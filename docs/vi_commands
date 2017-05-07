@@ -1,0 +1,189 @@
+				Vi (And Vim)
+0.0	Introduction
+
+The following is a summary of the vi full screen editor on a UNIX system.
+Cheat sheet:  http://www-rohan.sdsu.edu/doc/vi-vim-cheat-sheet.gif
+              http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
+Tutorial:     http://www.panix.com/~elflord/vim/quicktute.html
+Tips:         http://www.viemu.com/a-why-vi-vim.html
+
+1.0	Starting vi
+
+vi myfile	edit the file called myfile 
+vi +n myfile	edit the file myfile at line n
+vi + myfile	edit the file myfile at the end
+vi +/pat myfile	edit the file myfile at the first occurrence of pattern 'pat'
+vi -r		list saved files
+vi -r myfile	recover file myfile that aborted during editing
+vi file1 file2	edit the specified files in sequence
+
+2.0	Command Mode commands
+	NOTE: most commands can be preceded by a decimal number; for example,
+	80i*ESC will repeat the effect of i*ESC eighty times, resulting in the
+	insertion of eighty consecutive asterisks.
+
+^B	move backward one screen ("^B" is the notation for Control-B)
+^D	scroll down one half screen
+^E	expose one more line at bottom of screen (2^E exposes two lines, etc)
+^F	move forward one screen (3^F moves three screens forward, etc.)
+^G	print statistics on current file and position
+^H	move back one space (same as h)
+^J	move to corresponding position on next line (same as j)
+^L	redraw screen
+^M	same as CR (carriage return)
+^N	same as ^J (line feed)
+^P	move to corresponding column on previous line (same as k)
+^Q	unfreeze your terminal (if you accidentally typed ^S)
+^R	redraw screen, eliminating deleted lines marked by @
+^S	stop all terminal activity (type ^Q if you accidentally do this)
+^U	scroll up one half screen
+^Y	expose one more line at top of screen
+^Z	suspend currently active Unix command, i.e., this vi session
+^[	(escape key) ESC cancels a pending command and/or terminates insert mode
+^`	same as :vi # or :e #
+A	append text at end of current line (exit this mode with ESC)
+B	move to start of current big word ('big' words include punctuation)
+CR	move to first non-blank position on next line (CR = return/enter key)
+C	change from cursor to end of line (exit this mode with ESC)
+D	delete from cursor to end of line
+E	move to end of current big word (10E moves to the end of the tenth word)
+Fx	move backward to character x on current line (Fy moves to 'y', etc.)
+nG	move to start of line n (for example, 1G moves to the top of the file)
+G	move to the end of the file
+H	move to start of top line on current screen
+I	insert text at beginning of current line (exit this mode with ESC)
+J	join next line to current one
+L	move to start of last line on current screen
+M	move to start of middle line on current screen
+N	(repeat) search for (the previous) search pattern in opposite direction
+O	insert line above current line (exit this mode with ESC)
+P	put contents of the yank/delete buffer into text before cursor
+R	replace characters by overtyping (exit this mode with ESC)
+S	substitute entire line (delete, then insert) (exit this mode with ESC)
+Tx	move backward to character after x on current line
+U	undo all current changes on current line
+W	move to start of next big word
+X	delete character before cursor
+Y	copy current line into buffer (same as yy)
+ZZ	save file and quit
+a	append text after cursor (exit this mode with ESC)
+b	move to start of current word (treats punctuation like whitespace)
+c	change object (exit this mode with ESC)
+d	delete object (dw deletes one word, d5} deletes five paragraphs, etc.)
+e	move to end of current word
+fx	move forward to character x on current line
+h	move left one space (same as left-arrow)
+i	insert text before cursor (exit this mode with ESC)
+j	move down one line (same as down-arrow)
+k	move up one line (same as up-arrow)
+l	move right one space (same as spacebar or right-arrow)
+mx	associate a mark (x in this case) with current position of cursor
+n	(repeat) search for (the previous) pattern in same direction
+o	insert line below current line (exit this mode with ESC)
+p	put contents of (the unnamed) buffer into text after cursor
+r	replace character under cursor with x
+s	change characters (exit this mode with ESC)
+tx	move forward to character before x on current line
+u	undo last change
+w	move to start of next word
+x	remove character
+y	copy (yank) object into (the unnamed) buffer (y5w yanks 5 words, etc.)
+"xy	copy object into buffer named x ("b2y} puts 2 paragraphs into buffer b)
+"Xy	append object into buffer named x ("B2yy adds 2 more lines to buffer b)
+zCR	redraw screen with current line at the top
+z-	redraw screen with current line at the bottom
+z.	redraw screen with current line at the center
+/pat/z-	redraw screen with pat line at the bottom
+zn.	use window with line size n
+space	move right one column (spacebar)
+-	move to first non-blank position on previous line
+$	move to end of current line
+%	if given with cursor on (, { or [, moves it to matching ), }, or ]
+"xp	put (that is, copy) contents of buffer x into text after cursor
+"xP	insert buffer named x into text before cursor
+"1p	put contents of most recent (sustantial) deletion into text after cursor
+"9p	put contents of ninth-most-recent deletion into text after cursor
+"1pu.u.	put most-recent deletion, undo, put second-most-recent, undo, etc.
+'x	move to start of line containing mark x (see the 'm' command above)
+`x	move to the exact position within the line containing mark x
+``	return to previous position (previous mark)
+(	move (backward) to start of current sentence
+)	move (forward) to start of next sentence
++	move cursor to first non-blank character on next line (same as CR)
+.	repeat last command that made a change (insertion/deletion/substitution)
+/patCR	move downward to the next occurrence of pattern pat
+/	move downward to the next occurrence of the (previously chosen) pattern 
+<<	decrease indent of each level of object by one shiftwidth
+>>	indent each line of object by one more shiftwidth (e.g., 8 columns)
+?patCR	move upwards to next occurrence of pattern pat
+?	move upwards to the next occurrence of the (previously chosen) pattern
+[[	move to start of current section
+n|	move to column n on current line (or just to the end of a 'short' line)
+]]	move to start of next section
+0	move to first character on current line
+^	move to first non-blank character on current line
+~	toggle case (upper/lower) of letter under cursor (5~ changes 5 letters)
+{	move to start of current paragraph
+}	move to start of next paragraph
+:	prefix character for line mode ex commands (see section 4.0)
+;	repeat last t, T, f, or F command
+1-9	used for adding count prefixes to commands
+3.0	Text Insert Mode commands
+	NOTE: Once in insert mode (via a,A,o,O,i,I,c,C,s,S,R), NONE of the
+	above commands apply; instead, characters are inserted verbatim until
+	the Escape key (ESC) is pressed (and even an Escape can be inserted by
+	preceding it with ^V).
+
+^D	back up over one level of indentation if autoindent set
+0^D	kill autoindent
+^^D	kill autoindent on this line, restore it on next
+^H	delete last input character (backspace key)
+^T	if in autoindent mode, insert one shiftwidth blank or tab
+^V	escapes characters (like ^M, ^H, ^], and your erase and kill characters)
+^W	delete last input word
+ESC	return to command mode from insertion mode (escape key)
+INT	interrupt insertion, return to command mode (usually ^C)
+erase	delete last character entered (your erase key, usually delete key or ^H)
+kill	delete input on this line (your kill key, usually ^U)
+^Q	quote non-printing character (same as ^V)
+
+4.0	File commands and other colon commands
+
+:w		write changes to current file, but continue editing
+:w myfile	save changes to (a possibly new) file called myfile
+:w! file1	overwrite existing file file1 (NO spaces before the '!')
+:5,/pat1/w f2	write lines 5 through the line containing "pat1" to file f2
+:w ! cmd	run unix command 'cmd', with the data in this file as input
+:r data1	insert the contents of the file data1 into the file being edited
+:r !ls -C	insert the output of the 'ls -C' command into this file
+:wq		write and quit
+:q		quit if there are no unsaved changes
+:q!		quit and discard all changes made (since the last :w command)
+:e newfile	edit another file called newfile
+:e!		reedit, discard changes
+:e +n		edit, starting at line n
+:e + file1	edit file1 starting at the end
+:e +/pat file1	edit file1 starting at the first occurence of pattern 'pat'
+:e #		edit the alternate (e.g., previous) file
+:sh		run shell, then return (obsolete; use ^Z instead)
+:n		edit the next file in the argument list to vi
+:n file2 file3	specify new argument list (i.e., ask to edit additional files)
+:f		show current file and line (same as ^G)
+:ta tag	to tag 	file entry tag  (same as ^])
+:set		displays current settings
+:set all	displays possible settings
+:set list	Make newlines, tabs, and other 'invisible' characters visible
+:set nolist	cancel the ':set list' behavior
+:!(sort		replace the text from here to the beginning of the sentence with
+		the results of running the command 'sort' on that sentence.
+:!}fmt		run the fmt command (to format the remainder of a paragraph)
+:s/abc/xyz/	change the first occurence of 'abc' to 'xyz' on the current line
+:s+abc+xyz+g	change all occurences of 'abc' to 'xyz' on the current line
+:5,$s.a.yz	change 'a' to 'yz' (once per line) from line 5 to the last line
+:%s/abc/xyz/g	change all occurences of 'abc' to 'xyz' throughout the file
+:s/abc/&Z&/	change first occurence of 'abc' to 'abcZabc'
+:s/\<[a-z]/\u&/g capitalize all words on the current line
+:g/^ *$/d	delete all lines containing nothing but (zero or more) spaces
+:g/^$/d		delete all (totally) empty lines
+:g/pat1/y Z	append all lines matching pattern 'pat1' to end of buffer 'z'
+"zp		insert the contents of buffer z below the current line

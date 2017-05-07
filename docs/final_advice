@@ -1,0 +1,258 @@
+Subject: CS320 final coverage: Tuesday, 5/9/17 (1-3pm)
+
+The final for CS320 is scheduled for Tuesday, May 9 from 1pm to 3pm, in our
+normal classroom.  This material is in the file ~cs320/final_advice on edoras.
+(See http://arweb.sdsu.edu/es/registrar/finalexams/17_spring.html if you
+need to look up your other final times.)
+
+Page numbers in this document are for the NINTH edition of Sebesta.
+NOTE: If you have a newer edition of the text, the problem numbers listed are
+NOT accurate; you'll need to peek at someone's ninth edition to find out what
+the corresponding problem numbers are.
+
+The exam will be closed-book, but you may bring to the exam TWO 8.5x11-inch
+pages of notes (you can write/xerox/doodle on both sides of the page).
+Occasionally students pool resources and create a compact, whiz-bang compendium
+of facts, which multiple people can then print and use.  While this is legal
+[ANYTHING you want to put on the pages is legal], I don't recommend it;
+sifting through the material to create the notes, deciding what is important,
+and then writing it down is the most useful thing you can do to study for
+the exam -- this process is where you're actually going to learn the material.
+Using a canned sheet will be better than walking into the exam empty-handed,
+but even a seriously incomplete sheet that you've constructed yourself will
+almost certainly lead to a better outcome than using someone else's list.
+
+There may not be enough room to write all your answers on the exam, so bring
+notebook paper for your answers.  I'll have a stapler with me, to attach your
+answers to the exam.  (I'll also bring some paper, in case anyone runs out.
+Please use the paper I provide if all you have is paper ripped out of a
+spiral binder, or weirdly-sized paper.)
+
+Approximately 1/4 to 1/3 of the final will be about pre-midterm material,
+so the advice on rohan in ~cs320/midterm_advice
+...is still relevant.  (I've interwoven all that previous info into this
+document, along with the new stuff, but you might still want to look at
+the midterm_advice document, and compare the actual midterm questions
+to what I suggested that you study.) I suspect that the majority of the textbook
+'midterm material' on the final will be from Chapter 4, and relatively little
+from Chapters 1, 2, and 3.  (Though you should NOT misinterpret this to mean
+that you can neglect the non-textbook stuff, such as APL and C.)
+
+The in-class xeroxed lecture notes form an accurate guide to the material we
+have covered.  Approximately 2/3 to 3/4 of the final will be 'new' material
+that was not covered on the midterm.  Here is a summary of the relevant pages
+in Sebesta that correspond to our lectures:
+
+Pre-midterm:
+All of Chapters 1 and 2.  We SKIPped Sections 3.4 and 3.5, so you do NOT have to
+review Pages 135-163.  Section 4.3.2 contained everything I wanted you to know
+about Top-Down parsers, so you can SKIP Section 4.4.  We covered Section 4.5
+in gory detail, though I promised not to ask about 'phrases' (Page 196).
+We SKIPped Pages 230 and 231 in Chapter 5.
+
+Post-midterm:
+We SKIPped Pages 682-694 in Chapter 15.
+We SKIPped Pages 298-312 in Chapter 6.
+At the end of the Chapter 7 notes, you were asked to read Pages 353-356
+in Chapter 8 (about the 'dangling else' problem); you can SKIP the rest
+of Chapter 8.  We SKIPped Pages 431-442 in Chapter 9, Pages 462-475 in
+Chapter 10, and we never got to Chapter 16.
+(Regarding Chapter 16, I won't ask anything that isn't covered in Chapter 2
+[Section 2.13, specifically].  So, if you're comfortable with what it says
+in Chapter 2, ignore Chapter 16.)
+The chapters we ignored (11, 12, 13, 14) are not relevant to the final.
+(I intend to cover my Chapter 11 notes this week, but it's focussed on C++,
+and not really about the Sebesta material in Chapter 11.)
+
+The review questions at the end of each chapter can be a useful study guide.
+Some especially useful ones are:
+Chapter 1  (Page 34):  1,3,4,5,6,12,14,19,20,23,26,27,28
+Chapter 2  (Page 109): 1,10,14,15,21,26,35,41
+Chapter 3  (Page 164): 1,3,4,5,6
+Chapter 4  (Page 204): 1,2,3,7,8,9,12,21,23,24
+Chapter 5  (Page 240): 3,6,7,8,9,10,12,16,20
+Chapter 6  (Page 314): 9,18,27,28
+Chapter 7  (Page 344): 1,6,8,9,12,27
+Chapter 9  (Page 443): 1,2,3,13,14,16,22
+Chapter 10 (Page 476): 2,4,11
+Chapter 15 (Page 696): 5,6,10,11,16
+
+Many of the Sebesta review questions are of the form:
+"Give a definition for [something]"
+I rarely phrase exam questions that way; I would be more likely to ask:
+"Does [some-concrete-example] fit the definition for [something]"
+or:
+"Give an example that fits the definition of [something]"
+Therefore, you must know what the definition *means*; this is far different
+than memorizing a sequence of words that you can parrot back.
+In this regard, some of the Sebesta 'Problem Set' questions are better
+models of exam questions.  Here are the ones that I had suggested:
+Chapter 3 Problem Set questions (Page 165): 3,7c,10,11
+Chapter 4 Problem Set questions (Page 205): 7,8
+(Of course, I'd only ask one or two intermediate steps for 7 or 8 in Chapter 4,
+not the whole parse trace, but doing the entire problem is good practice.
+There will absolutely, definitely be [a small part of] something like this
+on the exam, using the exact grammar and LR parsing table that we have
+been practicing with.  The LR table [and the six grammar rules] will be
+provided on the exam; you don't need to put that info on your page of notes
+[though you might want to include some worked-out examples].)
+Oddly, the Sebesta questions seem to imply that you don't really have to
+know anything about ambiguous grammars.  Big hint: You do.
+Chapter  5 Problem Set questions (Page 241): 2,10,11a
+Chapter  6 Problem Set questions (Page 316): 1,2
+Chapter  7 Problem Set questions (Page 345): 9,14,15,20
+Chapter  9 Problem Set questions (Page 445): 5
+Chapter 10 Problem Set questions (Page 477): 2
+Chapter 15 Problem Set questions (Page 697): 8
+
+Make sure you understand the five classes of symbols used to describe formal
+languages (Pages 182-183); reread the part of the lecture notes that allow
+us to deduce what the 'A' is in the xA[alpha] expression on Page 183, etc.
+(namely that the notation implied that 'A' had to be the left-most nonterminal,
+even without stating that fact out loud -- you should be able to make similar
+deductions based on the meanings of the five classes).  For example:
+
+Assume that the following derivation step conforms to the formal language
+notational conventions for grammar symbols [i.e., the ``five rules'' on
+Pages 182-183] that we discussed in the lectures.
+Question: What can you deduce about the sentential form 'BwC'?
+Answer:   This sentential form contains exactly two non-terminals (one on
+each end), and there are zero or more terminals between them.
+
+Regarding the 'history of languages' in Chapter 2: I may ask for some
+information about the highlighted languages.  A good way to study this chapter
+is to put one or two important facts about each language on the page of notes
+that you bring to the exam; that should cover the vast majority of questions
+I might ask.  [If you are unsure of what facts I consider important, the
+lecture notes are a pretty good guide, of course.]
+
+I may ask a few simple questions about APL, C, Scheme, and C++
+on the exam; if you successfully completed the programming assignments,
+the first 3 should be slam-dunk questions.  In most cases, I'll give you a
+snippet of code and ask what it does.  Scheme and APL are the only languages
+in which I may ask you to create your own [simple!] expression; for APL,
+reviewing the tutorial [Pages 75-83] should be sufficient.  I'm not expecting
+you to know the exact details of the 50 or so different operators that were
+illustrated, but you should certainly be familiar by now with the most common
+ones [and the main characteristics, like precedence and associativity].  For
+Scheme, review Chapter 15.  For C, review the examples in the lecture notes;
+for C++, see below for a list of things to review regarding the Chapter 11 notes.
+
+If, for example, I wanted to see if you understood what was going on in numex.c
+(Page 13 of the lecture notes), I could ask what the output would be for:
+
+main() {float y,x=16.789;
+printf("abcde%6.3fg\n", y=x=3.1415926);}
+
+Note: the answer also depends on the issues discussed on Page 16; the answer is:
+abcde 3.142g
+
+We've covered a lot more C since the midterm; the main new topics were argv,
+pointers, and arrays.  For examples of 'new' C to think about, make sure
+you understand what the topics on Pages 40-61 are illustrating.
+
+Some Scheme sample questions:
+
+Write a Scheme function that returns the second element of a list (you may
+assume the single argument given is indeed a list; no need to check if it
+is only an atom).  [An answer to this question appears on Page 671.]
+
+Given the 'guess' code on Page 677, describe what this function does
+[The answer to this question is on Page 677.]
+
+Make sure you understand how to calculate the representation of negative
+numbers in two's complement notation (Page 114 of the lecture notes). 
+
+Make sure you can expand C macros, like the #define on Page 422 (an example
+of expanding this is in my notes, in the first panel on Page 126; this is
+also listed below in the mat_ptr lines).
+
+Make sure you can interpret C function declarations:
+float (*V) (char *x);
+is well within a reasonable level of complexity for the exam;
+void (*signal(int,void(*)(int)))(int);
+is definitely unreasonable!
+
+In creating an exam, I usually browse the lecture notes for code fragments, and
+often construct a question based on the concept[s] being illustrated.  So, a
+good study guide [for parts of the exam, anyway] would be to review the issues
+surrounding those bits of code.  Here's a [partial] list of lines to search for:
+
+Chapter 5
+*ptr = 5;
+float *fptr;
+static int statcount = 0
+
+Chapter 6
+char y[4];
+y[0]='r'; y[1]='a'; y[2]='t'; y[3]=0;
+...and we get +2, just like we want.  (Try -10 + 5 and verify that you get -5.)
+x = x + 2.9;
+while (*p++ = *q++);
+X = 'A';
+x = x + 1;  /* or even: x++; */
+char *names[] = {"Bob", "Jake", "Darcie"};
+int rect[2][3] = { {4, 8, 12}, {16, 20, 24} };
+
+Chapter 7
+a = (b = (c = 17));
+m = a - a++;
+atoi("7") == 7
+'7' == 7
+
+Chapter 9
+*x = 17;
+that names[2][1], *(names[2]+1), and *(*(names+2)+1) all referred to the
+#define mat_ptr(r,c)    *(*mat_ptr + ((r) * (num_cols) + (c)))
+mat_ptr(n+1,5)
+(*mat_ptr + ((n+1) * (num_cols) + (5)))
+int * fnptr( char *s, int i );
+float (*V) (char *x);
+[There will almost certainly be questions about matrix indexing and pointers,
+and about C function declarations.]
+
+Chapter 15
+alpha(h, (2,3,4))
+alpha(x*x, (2,3,4))
+(= n 0)
+(factorial 3)
+(DISPLAY '(+ 4 5))
+(CAR (A B C))
+(CAR '(A B C))
+something like CADDAR() can save you half a dozen parentheses...
+
+Chapter 16 (for completeness; NOT relevant for Spring 2017!)
+older(joanne, jake) :- mother(joanne, jake).
+wiser(joanne, jake) :- older(joanne, jake).
+sort(old_list, new_list) :- permute(old_list, new_list) , sorted(new_list).
+older(M, C) :- mother(M, C).
+sibling(X,Y) :- mother(M, X) , mother(M, Y) , father(F, X) , father(F, Y).
+sibling(A,B) :- sibling(B,A).
+
+Chapter 11
+Review the discussions of stackeasy.cpp, stack.h, stack.cpp, and stackmain.cpp,
+and also make sure you understand what the following commands accomplished:
+c++ -E ~cs320/stackeasy.cpp | more
+c++ -S ~cs320/stackeasy.cpp
+c++ stack.cpp stackmain.cpp -o stack.bin
+c++ -c stack.cpp 
+c++ stackmain.cpp stack.o
+ldd a.out
+ar cr libstack.a stack.o
+nm libstack.a
+c++ stackmain.cpp -L . -l stack -o stackfromlibrary.bin
+
+Recall the advice at the end of my Chapter 1 notes: I'm unlikely to ask for
+definitions or rote facts.  What you will see are questions where you have to
+apply the concepts you've learned. Concentrate on understanding, not memorizing!
+
+Here's an "applying the concepts"-type question:
+The original FORTRAN used static variables exclusively.  The current
+version of Fortran allows recursion.  Based on these two facts, discuss
+whether the current version of Fortran still only allows static variables.
+
+Our last class session will have time for a review. We can consider some of the
+sample exam problems, and also go over any concepts that still seem confusing.
+If we run out of questions, I'll repeat highlights from the overview of
+the course (that scary Chapter 0 stuff); with luck, you will find that it
+mostly makes sense this time around :-)
