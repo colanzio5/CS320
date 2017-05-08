@@ -29,33 +29,32 @@
 *----------------------------------------------------------------------
 reverse:  	EQU	$6000
 
-start:	initIO		*init I/O
+start:	initIO			*init I/O
 	setEVT    		*init error handling
 	*initF              	*init floating point
 
-	lineout	info	*print user info
-     	lineout	p1	*ask the user for input string
+	lineout	info		*print user info
+     	lineout	p1		*ask the user for input string
 	linein	inbuff	
-	move.l	D0,D1    	*move length of string to D1
+	move.l	D0,D1   	*move length of string to D1
 	lineout	skpln	
-	lineout	p2	*"Reversed String Is:"
+	lineout	p2		*"Reversed String Is:"
 	
 	move.l	D1,-(SP) 	*move length onto stack
 	pea	oubuff  	*move buff onto stack
-	pea	inbuff	*move string onto stack
-	jsr	reverse	*call reverse
-	adda.l	#12,SP 	*add offset to stack pointer
-
-	lea	oubuff,A0	*add null terminate to buff
-	add.l	D1,A0
+	pea	inbuff		*move string onto stack
+	jsr	reverse		*call reverse
+	adda.l	#12,SP 		*add offset to stack pointer/revert
+	
+	lea	oubuff,A0	
+	add.l	D1,A0		*add null terminate to buff
 	clr.b	(A0)
 
-	lineout	oubuff
+	lineout	oubuff		*printout reverse string
 	break          
 *
 *----------------------------------------------------------------------
 *       Storage declarations
-
 
 info:	dc.b	'Program #4, COLIN CASAZZA, CSSC0181',0
 p1:   	dc.b 	'Enter a string:',0
@@ -64,5 +63,4 @@ skpln:	dc.b	0
 
 inbuff:   	ds.b 	80
 oubuff:   	ds.b 	80
-
         end
