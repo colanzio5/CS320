@@ -3,7 +3,7 @@
 * Class Account: cssc0181
 * Assignment or Title: Programming Assignment 4
 * Filename: prog4.s
-* Date completed: 5 May, 2017
+* Date completed: 7 May, 2017
 *----------------------------------------------------------------------
 * Problem statement: Reverse a String given by a user.
 * Input:  A string with a maximum length of 79(+1 for '\0') characters.
