@@ -16,30 +16,27 @@
 
 	ORG	$6000
 	
-reverse:	link	A6,#0
+reverse:link	A6,#0
 	movem.l	D1/A0-A2,-(SP)
 	movea.l	8(A6),A1	*input buffer
 	movea.l	12(A6),A0	*output buffer
 	move.l	16(A6),D1	*lenght of string
-	TST.l	D1	*see if string is empty
-	BEQ	done	*if empty, branch to done
-	
+	TST.l	D1		*see if string is empty
+	BEQ	done		*if empty, branch to done
 	move.l	A1,A2	
-	addq.l	#1,A2	*move string pointer over one char
-	subq.l	#1,D1	*subtract one from the length
-	
+	addq.l	#1,A2		*move string pointer over one char
+	subq.l	#1,D1		*subtract one from the length
+					
 	move.l	D1,-(SP)
-	pea	(A0)	*move outbuff onto stack
-	pea	(A2)	*move inbuff  onto stack
-	jsr	reverse	*loopback
-	adda.l	#12,SP	*push stack back
-	
+	pea	(A0)		*move outbuff onto stack
+	pea	(A2)		*move inbuff  onto stack
+	jsr	reverse		*loopback
+	adda.l	#12,SP		*push stack back
 	add.l	D1,A0	
 	move.b	(A1),(A0)
-
 done:	movem.l	(SP)+,D1/A0-A2	*return values
-	unlk	A6	*unlink
-	
+	unlk	A6		*unlink
+
 	rts
 	end
 *----------------------------------------------------------------------
